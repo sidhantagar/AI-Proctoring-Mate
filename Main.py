@@ -24,6 +24,9 @@ STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
 BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
 CONTRAST_COLOURS = {-1 : 'white', 0 : 'white', 1 : 'black', 2 : 'black', 3 : 'black', 4 : 'black'}
 DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red', 1 : 'green', 2 : 'green', 3 : 'green', 4 : 'green'}
+CALCULATOR_ICON = cv2.imread(r'UI_Images\calculator.jpg')
+CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(CALCULATOR_ICON, (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
+
 
 #INITIALISE HERE
 av_index = 1
@@ -37,7 +40,7 @@ vid_frame_height = int(cap.get(4))
 ROOT.minsize(1400,800)
 
 video_app_frame = tk.Frame(ROOT)
-video_app_frame.place (x = 1070, y = 40)
+video_app_frame.place (x = 1070, y = 60)
 question_frame = tk.Frame(ROOT)
 question_frame.place(x = 15, y = 10)
 options_frame = tk.Frame(ROOT)
@@ -47,7 +50,8 @@ navigation_frame_1.place(x = 1070, y = 380)
 option_variable = tk.IntVar()
 df_responses = pd.DataFrame([[0,-1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1]],columns = ['Question', 'Response'])
 df_responses.set_index('Question')
-
+calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = None)
+calculator.place(x = 1347, y = 1)
 
 import UI_Comp_Functions
 
@@ -91,7 +95,7 @@ def button_1():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_1, relief = 'raised', bd = 4, font = STATUS_FONT, state = 'disabled')
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_2, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_1(question_frame, options_frame, option_variable, df_responses)
 def button_2():
     if (df_responses['Response'][2] == -1):
@@ -102,7 +106,7 @@ def button_2():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_1, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_3, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_2(question_frame, options_frame, option_variable, df_responses)
 def button_3():
     if (df_responses['Response'][3] == -1):
@@ -113,7 +117,7 @@ def button_3():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_2, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_4, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_3(question_frame, options_frame, option_variable, df_responses)
 def button_4():
     if (df_responses['Response'][4] == -1):
@@ -124,7 +128,7 @@ def button_4():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_3, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_5, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_4(question_frame, options_frame, option_variable, df_responses)
 def button_5():
     if (df_responses['Response'][5] == -1):
@@ -135,7 +139,7 @@ def button_5():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_4, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_6, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_5(question_frame, options_frame, option_variable, df_responses)
 def button_6():
     if (df_responses['Response'][6] == -1):
@@ -146,7 +150,7 @@ def button_6():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_5, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_7, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_6(question_frame, options_frame, option_variable, df_responses)
 def button_7():
     if (df_responses['Response'][7] == -1):
@@ -157,7 +161,7 @@ def button_7():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_6, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_8, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_7(question_frame, options_frame, option_variable, df_responses)
 def button_8():
     if (df_responses['Response'][8] == -1):
@@ -168,7 +172,7 @@ def button_8():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_7, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_9, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_8(question_frame, options_frame, option_variable, df_responses)
 def button_9():
     if (df_responses['Response'][9] == -1):
@@ -179,7 +183,7 @@ def button_9():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_8, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_10, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_9(question_frame, options_frame, option_variable, df_responses)
 def button_10():
     if (df_responses['Response'][10] == -1):
@@ -190,7 +194,7 @@ def button_10():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_9, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_11, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_10(question_frame, options_frame, option_variable, df_responses)
 def button_11():
     if (df_responses['Response'][11] == -1):
@@ -201,7 +205,7 @@ def button_11():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_10, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = button_12, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_11(question_frame, options_frame, option_variable, df_responses)
 def button_12():
     if (df_responses['Response'][12] == -1):
@@ -212,7 +216,7 @@ def button_12():
     previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = button_11, relief = 'raised', bd = 4, font = STATUS_FONT)
     previous_button.place(x = 15, y = 700)
     next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Submit Test', command = submit_test, relief = 'raised', bd = 4, font = STATUS_FONT)
-    next_button.place(x = 700, y = 700)
+    next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_12(question_frame, options_frame, option_variable, df_responses)
 
 
@@ -263,6 +267,9 @@ def window_close():
     ROOT.destroy()
 ROOT.protocol("WM_DELETE_WINDOW", window_close)
 
-if __name__ == '__main__':
+def Main():
     base_function()
     ROOT.mainloop()
+
+if __name__ == "__main__":
+    Main()

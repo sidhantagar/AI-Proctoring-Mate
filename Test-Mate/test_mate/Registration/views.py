@@ -235,14 +235,154 @@ def Activate(request,uidb64,token):
 
 
 
+
+# Email form loads in the GET request to this view.
+# User gives in the email, and once, the e-mail is verified..
+# Mail will be sent to that e-mail.
+
 def PasswordResetEmailForm(request):
-    pass
+
+    if request.method=="POST":
+
+        mail_list = []
+        for mail in User.objects.values_list('email'):
+            mail_list.append(mail[0])
+
+        if(request.POST.get('mail-id') in mail_list):
+            # send e-mail
+            newUser = User.objects.get(email=request.POST.get('mail-id'))
+
+            current_site = get_current_site(request)
+            email_subject = 'Password Reset Mail'
+            email_message = render_to_string('password_reset_mail_body.html',{
+                'user' : newUser.first_name,
+                'domain' : current_site.domain,
+                'uid' : urlsafe_base64_encode(force_bytes(newUser.pk)),
+                'token' : PasswordResetTokenGenerator().make_token(newUser)
+            })
+
+            email = EmailMessage(
+                email_subject,
+                email_message,
+                settings.EMAIL_HOST_USER,
+                [newUser.email]
+            )
+
+            EmailThread(email).start()
+
+            return render(request,'Password-Reset-Mail.html',{
+                'sent':True,
+                'message1':'Bingo!!',
+                'message2':'We have sent an email, with the password reset link; to the mail-id provided by you!!',
+                'message3':'Reset instructions are provided in the mail itself!!',
+                'spam':"Try Checking your spam folder, if you don't receive the mail."
+            })
+        else:
+            return render(request,'Password-Reset-Mail.html',{
+                'message':'Oops!! Seems like the mail you entered is not registered with us!!',
+                'error':True
+                })
+
+    return render(request,'Password-Reset-Mail.html',{'error':False})
+
+
+
+
+################################################################################################################
+
+
+
+
+
+# Validation View, if the link is correct, & not fraud.
+# will redirect to reset password form view.
 
 def SetNewPassword(request,uidb64,token):
-    pass
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk = uid)
+    except:
+        user = None
+
+    if user is not None and PasswordResetTokenGenerator().check_token(user,token):
+        return redirect(reverse('set_new_password')+'?message=SetNewPassword&error=False&user='+user.username)
+
+    return render(request,'error-1.html')
+
+
+
+
+##############################NEW##PASSWORD##########################################################################
+
+
+
+
+# Enter new Password view.
+# landing page of unique link send to the mail of the user requesting to reset his/her Password
+
 
 def NewPassword(request):
-    pass
+
+    name = request.GET.get('user')
+
+    if(request.method=='POST'):
+
+        pass_ = request.POST.get('pass-1')
+        #validators - ['a','1'] : add instructions in .html also!
+        if pass_ == request.POST.get('pass-2'):
+            if(len(pass_) <= 6):
+                message = 'Password too small!!'
+                return render(request,'Password-Reset-Form.html',{
+                    'message':message,
+                    'error':True
+                })
+            else:
+                count_sm = 0
+                count_num = 0
+                for i in pass_ :
+                    if(ord(i)>= 48 and ord(i)<=57):
+                        count_num += 1
+                    elif(ord(i)>=97 and ord(i)<=122):
+                        count_sm += 1
+                if(count_num == 0 or count_sm == 0):
+                    message = 'Your password is weak!! - Look instructions to set a better password'
+                    return render(request,'Password-Reset-Form.html',{
+                        'message':message,
+                        'error':True
+                    })
+                else:
+                    #password is correct - can use it with set password!!
+                    user = User.objects.get(username = name)
+                    user.set_password(pass_)
+                    user.save()
+                    return redirect(reverse('pwd_changed')+'?error=False&pwdChanged=True')
+        else:
+            # give an error that password didn't match.
+            message = "Password didn't match"
+            return render(request,'Password-Reset-Form.html',{
+                'message':message,
+                'error':True
+                })
+
+
+    return render(request,'Password-Reset-Form.html')
+
+
+
+
+
+######################PASSWORD##CHANGE##CONFIRMATION######################################################################
+
+
+
+# Confirmation View starts here.
+
 
 def PwdChangedConfirmation(request):
-    pass
+    return render(request,'Password-Reset-Confirm.html')
+
+
+
+
+################################################################################################################

@@ -1,0 +1,27 @@
+/* Show-Hide Feature */
+.Toggle{
+  cursor: pointer;
+  transition:all;
+  margin:5px;
+  font-size:13px;
+  color:#fed049;
+  font-weight:bold;
+}
+
+.Toggle:hover{
+  transform: scale(1.1);
+  margin:5px;
+  font-size:13px;
+  color:#fed049;
+  font-weight:bold;
+}
+
+.myStyle{
+  padding:0;
+  background-color:#007580;
+  border:0;
+  height:28px;
+  width:60px;
+  margin-left:200px;
+  opacity:0.7;
+}

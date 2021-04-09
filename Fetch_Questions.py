@@ -3,7 +3,7 @@ import requests
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
 SHORTNER = 'http://bit.ly/'
-code = '3t85qul'
+code = '3uibkub'
 
 r = requests.get(SHORTNER+code)
 

@@ -13,15 +13,15 @@ Typing.... &#11088;
 
 ### Completed Features:
 
+- [x] Questions are now dynamically downloaded
+- [x] Parallel computing for speed-up in video
 - [x] Added question number navigation buttons
 - [x] Added audio and video recording
 - [x] Added colors to buttons
 
 ### &#x2713; Proposed features:
 
-- [ ] Parallel computing for speed-up
 - [ ] Add Calculator
-- [ ] Add auto download of question files
 - [ ] Add next and previous navigation buttons 
 
 ### Completed Windows:

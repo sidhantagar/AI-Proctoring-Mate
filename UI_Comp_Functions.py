@@ -3,7 +3,7 @@ import tkinter as tk
 import tkinter.font as tkfont
 
 #DEFINE CONSTANTS HERE..
-DF_QUESTIONS = pd.read_csv('Questions.csv')
+DF_QUESTIONS = pd.read_csv('./Question/Questions.csv')
 OPTION_FONT = tkfont.Font(family="Comic Sans MS",size=15)
 QUESTION_FONT = tkfont.Font(family="Comic Sans MS",size=20)
 
@@ -15,7 +15,7 @@ calling_question = None
 
 def selected():
     responses['Response'][calling_question] = variable.get()
-    print("The option selected is "+ str(variable.get())) 
+    #print("The option selected is "+ str(variable.get())) 
 
 def extend_text(text):
     return text+(' '*(100-len(text)))

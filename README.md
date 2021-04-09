@@ -49,7 +49,7 @@ Typing.... &#11088;
  
 #### 1. Home:
 
-- <code>[-]</code> &nbsp; Landing Page
+- <code>&#x2713;</code> &nbsp; Landing Page
 
 #### 2. Authentication:
 

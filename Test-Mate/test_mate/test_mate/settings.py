@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Home',
+    'Questions',
+    'Registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,16 +108,54 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
+
+##############################################
+# for media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+##############################################
+# for csv files and zip files
+
+FILES_URL = '/files/'
+FILES_ROOT = os.path.join(BASE_DIR,'files')
+
+##############################################
+# For ANSWERS !!
+
+ANSWER_URL = '/Answers/'
+ANSWER_ROOT = os.path.join(BASE_DIR,'Answers')
+
+##############################################
+# setting up smtp services - Self Mail ID for Test-Mate Website.
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'testmate.noreply@gmail.com'
+EMAIL_HOST_PASSWORD = 'shizukaminamoto'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+##############################################
+# Consts for URL-Redirects
+
+LOGIN_URL = 'login_page'
+LOGIN_REDIRECT_URL = 'dashboard_view'
+LOGOUT_URL = 'logout_page'
+LOGOUT_REDIRECT_URL = 'home_page'

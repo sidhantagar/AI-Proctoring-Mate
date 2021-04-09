@@ -49,6 +49,7 @@ Typing.... &#11088;
 
 </details>
 
+### ----------------------------------------------------------------------------------------------------------------------
 
 ## Test Mate Progress:
 
@@ -67,14 +68,15 @@ Typing.... &#11088;
 
 #### 2. Authentication:
 
-- <code>[-]</code> &nbsp; Registration 
-- <code>[-]</code> &nbsp; Login
-- <code>[-]</code> &nbsp; Email Activation
-- <code>[-]</code> &nbsp; Reset Password via Mail
-- <code>[-]</code> &nbsp; Logout
+- <code>&#x2713;</code> &nbsp; Registration 
+- <code>&#x2713;</code> &nbsp; Login
+- <code>&#x2713;</code> &nbsp; Email Activation
+- <code>&#x2713;</code> &nbsp; Reset Password via Mail
+- <code>&#x2713;</code> &nbsp; Logout
 
 #### 3. Dashboard:
 
+- <code>[-]</code> &nbsp; Create Dashboard
 - <code>[-]</code> &nbsp; Create Quiz
   
   <ul>

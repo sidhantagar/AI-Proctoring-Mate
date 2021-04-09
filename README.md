@@ -16,7 +16,7 @@ Typing.... &#11088;
   
 - [x] Prompts the candidate for the test code
 - [ ] Checks the validity of the code
-- [ ] Fetchs files of respective code
+- [x] Fetchs files of respective code
 
 </details>
 

@@ -1,5 +1,6 @@
 #Local python path C:\Users\Sidhant Agarwal\AppData\Local\Programs\Python\Python36
 #Note : Due to compatibility issues with pyaudio, This module will not work on python 3.5 or higher
+
 #IMPORT HERE..
 import cv2
 import numpy as np
@@ -10,117 +11,146 @@ from PIL import Image, ImageTk
 import tkinter.font as tkfont
 import pandas as pd
 
+#DEFFINE CONSTANTS HERE..
+ROOT = tk.Tk()
+STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
+CONTRAST_COLOURS = {-1 : 'white', 0 : 'white', 1 : 'black', 2 : 'black', 3 : 'black', 4 : 'black'}
+DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red', 1 : 'green', 2 : 'green', 3 : 'green', 4 : 'green'}
 
 #INITIALISE HERE
 cap = cv2.VideoCapture(0)
 aud = pyaudio.PyAudio()
 vid_frame_width = int(cap.get(3))
 vid_frame_height = int(cap.get(4))
-root = tk.Tk()
-root.minsize(1200,800)
-video_app_frame = tk.Frame(root, bg="white")
+
+ROOT.minsize(1200,800)
+video_app_frame = tk.Frame(ROOT, bg = "white")
 video_app_frame.place (x = 870, y = 10)
-question_frame = tk.Frame(root, bg="white")
+question_frame = tk.Frame(ROOT, bg = "white")
 question_frame.place(x = 10, y = 10)
-options_frame = tk.Frame(root)
+options_frame = tk.Frame(ROOT)
 options_frame.place(x = 10, y = 130)
-navigation_frame = tk.Frame(root, bg="white")
+navigation_frame = tk.Frame(ROOT, bg = "white")
 navigation_frame.place(x = 870, y =400)
-var = tk.IntVar()
-option_Font = tkfont.Font(family="Comic Sans MS",size=15 )
+option_variable = tk.IntVar()
+df_responses = pd.DataFrame([[0,-1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1]],columns = ['Question', 'Response'])
+df_responses.set_index('Question')
+
 
 import UI_Comp_Functions
 
 
-question_Font = tkfont.Font(family="Comic Sans MS",size=20 )
-
 #Pseudofunctions for UI components
 def reset_config():
-    b1 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.1', command = button_1, relief = 'raised', bd = 4)
+    b1 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.1', command = button_1, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][1]], fg = CONTRAST_COLOURS[df_responses['Response'][1]])
     b1.grid(column = 1, row = 1, padx = 3, pady = 3)
-    b2 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.2', command = button_2, relief = 'raised', bd = 4)
+    b2 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.2', command = button_2, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][2]], fg = CONTRAST_COLOURS[df_responses['Response'][2]])
     b2.grid(column = 2, row = 1, padx = 3, pady = 3)
-    b3 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.3', command = button_3, relief = 'raised', bd = 4)
+    b3 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.3', command = button_3, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][3]], fg = CONTRAST_COLOURS[df_responses['Response'][3]])
     b3.grid(column = 3, row = 1, padx = 3, pady = 3)
-    b4 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.4', command = button_4, relief = 'raised', bd = 4)
+    b4 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.4', command = button_4, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][4]], fg = CONTRAST_COLOURS[df_responses['Response'][4]])
     b4.grid(column = 1, row = 2, padx = 3, pady = 3)
-    b5 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.5', command = button_5, relief = 'raised', bd = 4)
+    b5 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.5', command = button_5, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][5]], fg = CONTRAST_COLOURS[df_responses['Response'][5]])
     b5.grid(column = 2, row = 2, padx = 3, pady = 3)
-    b6 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.6', command = button_6, relief = 'raised', bd = 4)
+    b6 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.6', command = button_6, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][6]], fg = CONTRAST_COLOURS[df_responses['Response'][6]])
     b6.grid(column = 3, row = 2, padx = 3, pady = 3)
-    b7 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.7', command = button_7, relief = 'raised', bd = 4)
+    b7 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.7', command = button_7, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][7]], fg = CONTRAST_COLOURS[df_responses['Response'][7]])
     b7.grid(column = 1, row = 3, padx = 3, pady = 3)
-    b8 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.8', command = button_8, relief = 'raised', bd = 4)
+    b8 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.8', command = button_8, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][8]], fg = CONTRAST_COLOURS[df_responses['Response'][8]])
     b8.grid(column = 2, row = 3, padx = 3, pady = 3)
-    b9 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.9', command = button_9, relief = 'raised', bd = 4)
+    b9 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.9', command = button_9, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][9]], fg = CONTRAST_COLOURS[df_responses['Response'][9]])
     b9.grid(column = 3, row = 3, padx = 3, pady = 3)
-    b10 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.10', command = button_10, relief = 'raised', bd = 4)
+    b10 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.10', command = button_10, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][10]], fg = CONTRAST_COLOURS[df_responses['Response'][10]])
     b10.grid(column = 1, row = 4, padx = 3, pady = 3)
-    b11 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.11', command = button_11, relief = 'raised', bd = 4)
+    b11 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.11', command = button_11, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][11]], fg = CONTRAST_COLOURS[df_responses['Response'][11]])
     b11.grid(column = 2, row = 4, padx = 3, pady = 3)
-    b12 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.12', command = button_12, relief = 'raised', bd = 4)
+    b12 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.12', command = button_12, relief = 'raised', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][12]], fg = CONTRAST_COLOURS[df_responses['Response'][12]])
     b12.grid(column = 3, row = 4, padx = 3, pady = 3)
 
 def button_1():
+    if (df_responses['Response'][1] == -1):
+        df_responses['Response'][1] = 0
     reset_config()
-    b1 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.1', command = button_1, relief = 'sunken', bd = 4)
+    b1 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.1', command = button_1, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][1]], fg = CONTRAST_COLOURS[df_responses['Response'][1]])
     b1.grid(column = 1, row = 1, padx = 3, pady = 3)
-    UI_Comp_Functions.button_1(question_frame, options_frame, var)
+    UI_Comp_Functions.button_1(question_frame, options_frame, option_variable, df_responses)
 def button_2():
+    if (df_responses['Response'][2] == -1):
+        df_responses['Response'][2] = 0
     reset_config()
-    b2 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.2', command = button_2, relief = 'sunken', bd = 4)
+    b2 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.2', command = button_2, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][2]], fg = CONTRAST_COLOURS[df_responses['Response'][2]])
     b2.grid(column = 2, row = 1, padx = 3, pady = 3)
-    UI_Comp_Functions.button_2(question_frame, options_frame, var)
+    UI_Comp_Functions.button_2(question_frame, options_frame, option_variable, df_responses)
 def button_3():
+    if (df_responses['Response'][3] == -1):
+        df_responses['Response'][3] = 0
     reset_config()
-    b3 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.3', command = button_3, relief = 'sunken', bd = 4)
+    b3 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.3', command = button_3, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][3]], fg = CONTRAST_COLOURS[df_responses['Response'][3]])
     b3.grid(column = 3, row = 1, padx = 3, pady = 3)
-    UI_Comp_Functions.button_3(question_frame, options_frame, var)
+    UI_Comp_Functions.button_3(question_frame, options_frame, option_variable, df_responses)
 def button_4():
+    if (df_responses['Response'][4] == -1):
+        df_responses['Response'][4] = 0
     reset_config()
-    b4 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.4', command = button_4, relief = 'sunken', bd = 4)
+    b4 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.4', command = button_4, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][4]], fg = CONTRAST_COLOURS[df_responses['Response'][4]])
     b4.grid(column = 1, row = 2, padx = 3, pady = 3)
-    UI_Comp_Functions.button_4(question_frame, options_frame, var)
+    UI_Comp_Functions.button_4(question_frame, options_frame, option_variable, df_responses)
 def button_5():
+    if (df_responses['Response'][5] == -1):
+        df_responses['Response'][5] = 0
     reset_config()
-    b5 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.5', command = button_5, relief = 'sunken', bd = 4)
+    b5 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.5', command = button_5, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][5]], fg = CONTRAST_COLOURS[df_responses['Response'][5]])
     b5.grid(column = 2, row = 2, padx = 3, pady = 3)
-    UI_Comp_Functions.button_5(question_frame, options_frame, var)
+    UI_Comp_Functions.button_5(question_frame, options_frame, option_variable, df_responses)
 def button_6():
+    if (df_responses['Response'][6] == -1):
+        df_responses['Response'][6] = 0 
     reset_config()
-    b6 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.6', command = button_6, relief = 'sunken', bd = 4)
+    b6 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.6', command = button_6, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][6]], fg = CONTRAST_COLOURS[df_responses['Response'][6]])
     b6.grid(column = 3, row = 2, padx = 3, pady = 3)
-    UI_Comp_Functions.button_6(question_frame, options_frame, var)
+    UI_Comp_Functions.button_6(question_frame, options_frame, option_variable, df_responses)
 def button_7():
+    if (df_responses['Response'][7] == -1):
+        df_responses['Response'][7] = 0
     reset_config()
-    b7 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.7', command = button_7, relief = 'sunken', bd = 4)
+    b7 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.7', command = button_7, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][7]], fg = CONTRAST_COLOURS[df_responses['Response'][7]])
     b7.grid(column = 1, row = 3, padx = 3, pady = 3)
-    UI_Comp_Functions.button_7(question_frame, options_frame, var)
+    UI_Comp_Functions.button_7(question_frame, options_frame, option_variable, df_responses)
 def button_8():
+    if (df_responses['Response'][8] == -1):
+        df_responses['Response'][8] = 0
     reset_config()
-    b8 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.8', command = button_8, relief = 'sunken', bd = 4)
+    b8 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.8', command = button_8, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][8]], fg = CONTRAST_COLOURS[df_responses['Response'][8]])
     b8.grid(column = 2, row = 3, padx = 3, pady = 3)
-    UI_Comp_Functions.button_8(question_frame, options_frame, var)
+    UI_Comp_Functions.button_8(question_frame, options_frame, option_variable, df_responses)
 def button_9():
+    if (df_responses['Response'][9] == -1):
+        df_responses['Response'][9] = 0
     reset_config()
-    b9 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.9', command = button_9, relief = 'sunken', bd = 4)
+    b9 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.9', command = button_9, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][9]], fg = CONTRAST_COLOURS[df_responses['Response'][9]])
     b9.grid(column = 3, row = 3, padx = 3, pady = 3)
-    UI_Comp_Functions.button_9(question_frame, options_frame, var)
+    UI_Comp_Functions.button_9(question_frame, options_frame, option_variable, df_responses)
 def button_10():
+    if (df_responses['Response'][10] == -1):
+        df_responses['Response'][10] = 0
     reset_config()
-    b10 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.10', command = button_10, relief = 'sunken', bd = 4)
+    b10 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.10', command = button_10, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][10]], fg = CONTRAST_COLOURS[df_responses['Response'][10]])
     b10.grid(column = 1, row = 4, padx = 3, pady = 3)
-    UI_Comp_Functions.button_10(question_frame, options_frame, var)
+    UI_Comp_Functions.button_10(question_frame, options_frame, option_variable, df_responses)
 def button_11():
+    if (df_responses['Response'][11] == -1):
+        df_responses['Response'][11] = 0
     reset_config()
-    b11 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.11', command = button_11, relief = 'sunken', bd = 4)
+    b11 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.11', command = button_11, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][11]], fg = CONTRAST_COLOURS[df_responses['Response'][11]])
     b11.grid(column = 2, row = 4, padx = 3, pady = 3)
-    UI_Comp_Functions.button_11(question_frame, options_frame, var)
+    UI_Comp_Functions.button_11(question_frame, options_frame, option_variable, df_responses)
 def button_12():
+    if (df_responses['Response'][12] == -1):
+        df_responses['Response'][12] = 0
     reset_config()
-    b12 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.12', command = button_12, relief = 'sunken', bd = 4)
+    b12 = tk.Button(navigation_frame, padx = 3, pady = 3, width = 10, height = 3, text = 'Q.12', command = button_12, relief = 'sunken', bd = 4, bg = DICTIONARY_COLOURS[df_responses['Response'][12]], fg = CONTRAST_COLOURS[df_responses['Response'][12]])
     b12.grid(column = 3, row = 4, padx = 3, pady = 3)
-    UI_Comp_Functions.button_12(question_frame, options_frame, var)
+    UI_Comp_Functions.button_12(question_frame, options_frame, option_variable, df_responses)
 def selected():
     print("The option selected is "+ str(var.get())) 
 
@@ -134,7 +164,7 @@ button_1()
 #DYNAMIC COMPONENTS..
 lmain = tk.Label(video_app_frame, anchor = 'ne')
 lmain.grid(row = 1, column = 1)
-status = tk.Label(video_app_frame, text = 'The status will show here!', font = option_Font, width = 27)
+status = tk.Label(video_app_frame, text = 'The status will show here!', font = STATUS_FONT, width = 27)
 status.grid(row = 2, column = 1)
 
 #DEFINE CONSTANTS HERE..
@@ -189,7 +219,7 @@ def record_if_suspicious(vid_frame,aud_frame):
             recording = 0
 
 def base_function():
-    global root
+    global ROOT
     global stream
     ret, vid_frame = cap.read()
     stream = aud.open(format=FORMAT,channels=CHANNELS,rate=RATE,input=True, frames_per_buffer=CHUNK)
@@ -202,10 +232,7 @@ def base_function():
     lmain.configure(image=imgtk)
     lmain.after(1, base_function)   
 base_function()
-root.mainloop()
-
-
-
+ROOT.mainloop()
 
 final_audio = wave.open("Audio_"+str(av_index)+'.wav','wb')
 final_audio.setnchannels(CHANNELS)
@@ -220,3 +247,4 @@ stream.close()
 
 cap.release()
 cv2.destroyAllWindows()
+df_responses[1:].to_csv("Filled_Responses.csv", index = False)

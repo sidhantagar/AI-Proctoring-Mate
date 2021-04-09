@@ -11,15 +11,27 @@ Typing.... &#11088;
 
 <details>
 
-### Completed
+### Completed Features:
 
-- [x] Added navigation buttons
+- [x] Added question number navigation buttons
 - [x] Added audio and video recording
+- [x] Added colors to buttons
 
-### &#x2713; Proposed
+### &#x2713; Proposed features:
+
+- [ ] Parallel computing for speed-up
 - [ ] Add Calculator
-- [ ] Add colors to button
-- [ ] Auto download question files
+- [ ] Add auto download of question files
+- [ ] Add next and previous navigation buttons 
+
+### Completed Windows:
+
+- [x] Main Exam Window
+
+### &#x2713; Proposed Windows:
+
+- [ ] Window to fetch test code
+
 
 </details>
 

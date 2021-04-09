@@ -2,6 +2,28 @@
 
 Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
+## AI Proctoring Progress:
+  
+<strong>Description:</strong><br>
+<code>
+Typing.... &#11088;
+</code>
+
+<details>
+
+### Completed
+
+- [x] Added navigation buttons
+- [x] Added audio and video recording
+
+### &#x2713; Proposed
+- [ ] Add Calculator
+- [ ] Add colors to button
+- [ ] Auto download question files
+
+</details>
+
+
 ## Test Mate Progress:
 
 <strong>Description:</strong><br>

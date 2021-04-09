@@ -1,0 +1,15 @@
+{% extends 'second_base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2 class="form-title">Err!! ._.</h2>
+  <h4 class="form-title">Verification Failed!!</h4>
+
+  <div>
+    <h6 class="form-title" style="padding-bottom:5px">
+        Seems like there was an issue validating your account, Try Registering yourself again, if you're a new User,
+        else Try logging in!!
+    </h6>
+  </div>
+  <a href="{% url 'login_page' %}">Sign In</a>
+{% endblock %}

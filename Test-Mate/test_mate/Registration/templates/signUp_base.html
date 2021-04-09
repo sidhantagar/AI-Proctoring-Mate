@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sign Up</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+		<!-- LINEARICONS -->
+		<link rel="stylesheet" href="{% static 'Registration/Register/fonts/linearicons/style.css' %}">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'Registration/Register/css/style.css' %}">
+
+	</head>
+
+	<body>
+
+		<div class="wrapper">
+			<div class="inner">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		  function resetFunction(){
+		    document.getElementById('regForm').reset()
+		  }
+		</script>
+		<script src="{% static 'Registration/Register/js/jquery-3.3.1.min.js' %}"></script>
+		<script src="{% static 'Registration/Register/js/main.js' %}"></script>
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

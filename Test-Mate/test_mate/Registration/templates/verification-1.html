@@ -1,0 +1,15 @@
+{% extends 'second_base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2 class="form-title">Hi There</h2>
+  <h4 class="form-title">One more Step to Go!!</h4>
+
+  <div>
+    <h6 class="form-title" style="padding-bottom:5px">
+        We have sent a Verification Link to the provided Email-id.
+        Kindly Verify it, to Authenticate yourself!!
+    </h6>
+  </div>
+  <a href="{% url 'login_page' %}"><code class="h6">Log In</code></a>
+{% endblock %}

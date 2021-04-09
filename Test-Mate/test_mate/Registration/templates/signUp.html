@@ -1,0 +1,70 @@
+{% extends 'signUp_base.html' %}
+{% load static %}
+
+
+{% block content %}
+<img src="{% static 'Registration/Register/images/image-1.png' %}" alt="" class="image-1">
+<form id="regForm" action="#" name="RegisterForm" method="POST">
+  {% csrf_token %}
+  <h3>New Account?</h3>
+  <!-- {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ messages.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %} -->
+  <div class="form-holder" style="margin-bottom: 15px;">
+    <span class="lnr lnr-user"></span>
+    <input type="text" class="form-control" placeholder="Full Name" name="name" required>
+  </div>
+  <div class="form-holder" style="margin-bottom: 15px;">
+    <span class="lnr lnr-user"></span>
+    <input type="text" class="form-control" placeholder="Username" name="username" required>
+  </div>
+  {% if name_message %}
+    <strong>
+    <div style="color:#ec4646;padding-bottom:5px;">({{ name_message }})</div>
+  </strong>
+  {% endif %}
+  <!-- <div class="form-holder">
+      <span class="lnr lnr-phone-handset"></span>
+      <input type="text" class="form-control" placeholder="Phone Number" name="mob" required>
+    </div> -->
+  <div class="form-holder" style="margin-bottom: 15px;">
+    <span class="lnr lnr-envelope"></span>
+    <input type="email" class="form-control" placeholder="Mail" name="email" required>
+  </div>
+  {% if mail_message %}
+  <strong>
+    <div style="color:#f58634;">({{ mail_message }})</div>
+  </strong>
+  {% endif %}
+  <div class="form-holder" style="margin-bottom: 15px;">
+    <span class="lnr lnr-lock"></span>
+    <input type="password" class="form-control" placeholder="Password ('a-z','0-9')" name="pass-1" required>
+  </div>
+
+
+  {% if pwd_message %}
+    <strong><div style="color:#ec4646;">({{ pwd_message }})</div>
+    </strong>
+  {% endif %}
+  {% if small_message %}
+    <strong>
+    <div style="color:#f58634;">({{ small_message }})</div>
+    </strong>
+  {% endif %}
+  {% if weak_message %}
+    <strong>
+    <div style="color:#f58634;">({{ weak_message }})</div>
+    </strong>
+  {% endif %}
+  <div class="form-holder" style="margin-bottom: 15px;">
+    <span class="lnr lnr-lock"></span>
+    <input type="password" class="form-control" placeholder="Confirm Password" name="pass-2" required>
+  </div>
+  <button type="submit" onClick="resetFunction">
+    <span>Register</span>
+  </button>
+</form>
+<img src="{% static 'Registration/Register/images/image-2.png' %}" alt="" class="image-2">
+{% endblock %}

@@ -19,6 +19,10 @@ from django.conf import settings
 import threading
 
 ##################################PARALLEL##THREAD##FOR##MAIL############################################
+
+
+
+
 # Mail thread will make mail-sending process to happen parallel to the normal page redirect.
 # Added an e-mail thread.
 
@@ -31,7 +35,12 @@ class EmailThread(threading.Thread):
     def run(self):
         self.email_message.send()
 
+
+
+
 ###################################REGISTER####################################################
+
+
 
 # signUp view starts here.
 
@@ -127,17 +136,68 @@ def Register(request):
     return render(request,'signUp.html')
 
 
+
+
+
 ##############################LOGIN###############################################################
 
+
+
+# Login view starts here.
+
 def Login(request):
-    pass
+
+    if request.method == 'POST' :
+
+        user_name = request.POST.get('user_name')
+        user_pwd = request.POST.get('user_pwd')
+
+        user = authenticate(username=user_name,password=user_pwd)
+        if not user:
+            #credentials that you enetered is invalid.
+            text = "The Username or Password that you enetered is Invalid."
+            return render(request,'logIn.html',{
+                "message" : text,
+                "error" : False,
+            })
+        else:
+            if user.is_active:
+                login(request,user)
+                return redirect(reverse('dashboard_view'))
+            else:
+                text = "Please activate your account first, and then try logging in."
+                return render(request,'logIn.html',{
+                    "message" : text,
+                    "error" : False,
+                })
+
+    return render(request,'logIn.html',{
+        'message' : request.GET.get('message'),
+        'error' : request.GET.get('error')
+    })
+
+
 
 ##############################LOGOUT####################################################################
 
+
+
+# Logout View starts here.
+
 def Logout(request):
-    pass
+
+    # Everytime logout button is pressed on the page, a post request is made.
+    # To this view, which redirects user, to test mate's landing page.
+
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home_page')
+
+
 
 ##############################SECONDARY###################################################################
+
+
 
 # Secondary view starts here.
 # Secondary view for Displaying Intermmediate Information of the site's redirect.
@@ -145,7 +205,11 @@ def Logout(request):
 def Secondary(request):
     return render(request,'verification-1.html')
 
+
 ##############################ACCOUNT##ACTIVATE#######################################################
+
+
+
 
 # Activation View starts here.
 # Activation LINK sent to user's mail, will be redirected to this view
@@ -165,7 +229,11 @@ def Activate(request,uidb64,token):
 
     return render(request,'error-1.html')
 
+
+
 #############################PASSWORD##RESET#########################################################################
+
+
 
 def PasswordResetEmailForm(request):
     pass

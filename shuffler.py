@@ -39,6 +39,8 @@ def response_inverse_transform (number, question_num, active_section):
 
 def shuffle_option (this_question, question_num, active_section):
     #print(this_question)
+    if randomizer_options is None:
+        return this_question
     shuffling_pattern = randomizer_options[active_section-1][question_num-1]
     shuffled_options = this_question.copy()
     for i in range(1,5):

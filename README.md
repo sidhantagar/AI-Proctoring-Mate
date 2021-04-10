@@ -19,7 +19,7 @@ Typing.... &#11088;
 - [x] Prompts the candidate for the test code
 - [x] Checks the validity of the code
 - [x] Fetchs files of respective code
-- [ ] Practice mode for people to get familiar
+- [x] Practice mode for people to get familiar
 
 
 #### Get Details Window:

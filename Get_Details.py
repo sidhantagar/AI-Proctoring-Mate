@@ -57,7 +57,10 @@ def submit_details(event = None): #Button Function
         print("Name : ", name)
     if __name__ == '__main__':
         print("Unique id : ", unique_id)
-    valid = Verify_Details.verify_details(unique_id, CODE)
+    if CODE == 'PRACTICE':
+        valid = True
+    else:
+        valid = Verify_Details.verify_details(unique_id, CODE)
     if valid:
         window_close()
         Instruction_Menu.instruction_menu(name, unique_id, CODE)
@@ -90,4 +93,4 @@ def get_details(code):
     ROOT.mainloop()
 
 if __name__ == '__main__':
-    get_details(code = "3uibkub")
+    get_details("H3TH7A86")

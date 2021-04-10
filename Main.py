@@ -5,15 +5,16 @@
 import cv2
 import pyaudio
 import shuffler
+import pandas as pd
 import tkinter as tk
 from PIL import Image, ImageTk
 import tkinter.font as tkfont
-import pandas as pd
 import AV_Synchronization
 import UI_Comp_Functions
 import Upload_Submission
 from functools import partial
 import Render_Button
+import Check_Datetime
 
 #DEFINE CONSTANTS HERE..
 CODE = None
@@ -86,13 +87,16 @@ def define_constants(name, unique_id, code):
         CONTRAST_COLOURS[i] = 'white'
         DICTIONARY_COLOURS[i] = 'green'
     CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(cv2.imread(r'UI_Images\calculator.jpg'), (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
-    DF_CONFIGURATION = pd.read_csv('./Question/Config.csv').set_index("Name")[['Value']]
-    DURATION = (int(DF_CONFIGURATION.at['Duration', 'Value']))*60
+    DF_CONFIGURATION = pd.read_csv("./Question/" + CODE + "/Config.csv").set_index("Name")[['Value']]
+    if CODE == "PRACTICE":
+        DURATION = 10*60
+    else:
+        DURATION = (int(DF_CONFIGURATION.at['Duration', 'Value']))*60 + 90 #Correction for instruction_menu
     NUM_SECTIONS = (int(DF_CONFIGURATION.at['Num_sections', 'Value']))
     NUM_QUESTIONS = []
     for i in range(1, NUM_SECTIONS+1):
         NUM_QUESTIONS.append(int(DF_CONFIGURATION.at['Num_questions_'+str(i), 'Value']))
-        assert NUM_QUESTIONS[i-1]>1
+        assert NUM_QUESTIONS[i-1]>1 #Needed to mantain the structure in next and previous navigation buttons
     NAME_TO_RGB = {"purple" : (128, 0, 128), "white" : (255, 255, 255), "green" : (0, 128, 0), "red" : (255, 0 , 0), "black" : (0, 0, 0)}
 
 def define_initializations():
@@ -118,7 +122,10 @@ def define_initializations():
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
     calculator_status = "closed"
-    time_lapsed = 13*60
+    if CODE == "PRACTICE":
+        time_lapsed = 0
+    else:
+        time_lapsed = DURATION - Check_Datetime.time_until_end(CODE)
     warning_1 = 2
 
 def reset_section_config():
@@ -302,19 +309,20 @@ def window_close():
     file_name = CODE + "_" + NAME + "_"+ UNIQUE_ID +"_responses.csv"
     df_responses[1:].to_csv(file_name, index = False)
     ROOT.destroy()
-    for i in range(1,av_index):
-        Upload_Submission.upload_submission(fileName = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi", testCode = "AAAAAAAA")
-    Upload_Submission.upload_submission(fileName = file_name, testCode = CODE, config = DF_CONFIGURATION)#Commented temporarily................................
+    if CODE != 'PRACTICE': 
+        Upload_Submission.upload_submission(fileName = file_name, testCode = CODE, config = DF_CONFIGURATION)#Commented temporarily................................
+        for i in range(1,av_index):
+            Upload_Submission.upload_submission(fileName = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi", testCode = "AAAAAAAA")
 
-def main(name, unique_id, code):
+def main(name, unique_id, code, test_mode = True):
     define_constants(name, unique_id, code)
     define_initializations()
     dynamic_initialization()
-    UI_Comp_Functions.initialize_ui_components()
+    UI_Comp_Functions.initialize_ui_components(CODE)
     load_section(1)
     show_timer()
     base_function() #Commented temporarily................................
     ROOT.mainloop()
 
 if __name__ == "__main__":
-    main(name = 'Sidhant Agarwal', unique_id = "20188028", code = "9V1FQNU7")
+    main(name = 'Sidhant', unique_id = "201888", code = "H3TH7A86")

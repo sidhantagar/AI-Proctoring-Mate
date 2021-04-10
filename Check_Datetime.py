@@ -20,7 +20,7 @@ def get_end_time():
     date = [int (x) for x in DF_CONFIGURATION.at["Scheduled_Date", "Value"].split('-')]
     time = [int (x) for x in DF_CONFIGURATION.at["Scheduled_Time", "Value"].split(":")]
     duration = int(DF_CONFIGURATION.at["Duration", "Value"])
-    datetime_scheduled = datetime.datetime(date[2], date[1], date[0], time[0], time[1]) + datetime.timedelta(minutes= duration)
+    datetime_scheduled = datetime.datetime(date[0], date[1], date[2], time[0], time[1]) + datetime.timedelta(minutes= duration)
     return datetime_scheduled
 
 def check_datetime(code):

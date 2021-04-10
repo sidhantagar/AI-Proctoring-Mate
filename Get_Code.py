@@ -1,10 +1,9 @@
 #IMPORT HERE..
-import os
+import shutil
 import Get_Details
 import Check_Datetime 
 import tkinter as tk
 import Fetch_Questions
-import File_Mover_Remover
 import tkinter.font as tkfont
 
 #DEFINE CONSTANTS HERE..
@@ -81,7 +80,7 @@ def submit_code(event = None): #Button Function
             code_text.place(x = 10, y = 60)
             code_text.insert("end-1c", code[:len(code)])
         if status == True:
-            File_Mover_Remover.remove_test_files(code)
+            shutil.rmtree(".\\Question\\"+code)
 
 def define_constants():
     global ROOT, CODE_FONT1, CODE_FONT2, ERROR_FONT

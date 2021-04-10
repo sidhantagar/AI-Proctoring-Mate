@@ -1,8 +1,12 @@
 #Local python path C:\Users\Sidhant Agarwal\AppData\Local\Programs\Python\Python36
 #Note : Due to compatibility issues with pyaudio, This module will not work on python 3.5 or higher
 
+
 #IMPORT HERE..
+import os
+import sys
 import cv2
+import shutil
 import pyaudio
 import shuffler
 import pandas as pd
@@ -15,6 +19,12 @@ import Upload_Submission
 from functools import partial
 import Render_Button
 import Check_Datetime
+
+sys.path.append("./Eye Tracking Final")
+
+
+#import Image_processor
+#from Eye Tracking Final
 
 #DEFINE CONSTANTS HERE..
 CODE = None
@@ -78,7 +88,7 @@ def define_constants(name, unique_id, code):
     ROOT.minsize(1400,800)
     ROOT['bg'] = "gray13"      #Termorarily changed to black theme :P 
     ROOT.protocol("WM_DELETE_WINDOW", window_close)
-    SUSPICIOUS_THRESHOLD = 0.5
+    SUSPICIOUS_THRESHOLD = 0.6
     STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
     BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
     CONTRAST_COLOURS = {-1 : 'white', 0 : 'white'}
@@ -116,7 +126,7 @@ def define_initializations():
     navigation_frame_1 = tk.Frame(ROOT)
     navigation_frame_1.place(x = 1070, y = 350)
     df_responses = pd.DataFrame()
-    for i in range(1, (NUM_SECTIONS+1)):
+    for i in range(1, (4)):
         df_responses["Response_section_" + str(i)] = [-1]*(max(NUM_QUESTIONS)+1)
         df_responses["Marked_section_" + str(i)] = [False]*(max(NUM_QUESTIONS)+1)
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
@@ -126,7 +136,7 @@ def define_initializations():
         time_lapsed = 0
     else:
         time_lapsed = DURATION - Check_Datetime.time_until_end(CODE)
-    warning_1 = 2
+    warning_1 = 4
 
 def reset_section_config():
     section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'raised', bd = 4, font = STATUS_FONT)
@@ -164,6 +174,47 @@ def reset_config():
         button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked_section_' + str(active_section)][active_question], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]]))))
         button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]])
         button.grid(column = ((i-1)%3)+1, row = (i + 2)//3, padx = PADX, pady = PADY)
+
+
+def window_close():
+    global av_index
+    if recording == 1:
+        AV_Synchronization.stop_AVrecording(filename = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(av_index))
+        av_index += 1
+        AV_Synchronization.file_manager()
+    cap.release()
+    file_name = CODE + "_" + NAME + "_"+ UNIQUE_ID +"_responses.csv"
+    df_responses[1:].to_csv(file_name, index = False)
+    ROOT.destroy()
+    if CODE != 'PRACTICE': 
+        #Response File
+        Upload_Submission.upload_submission(fileName = file_name)
+        os.remove(file_name)
+
+        #Video Files
+        os.mkdir(".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video")
+        f = open(".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video//Readme.txt", "w+")
+        f.write("This folder contains the video files if any for the candidate "+ " ".join(NAME.split("-"))+ " holding the unique ID " + UNIQUE_ID + " who gave the test corrosponding to the code "+ CODE+".")
+        f.close()
+        for i in range(1,av_index):
+            shutil.copy(".\\"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi", ".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video")
+            os.remove(".\\"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi")
+        shutil.make_archive(".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video","zip", ".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video")
+        Upload_Submission.upload_submission(fileName = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video.zip")
+        os.remove(CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video.zip")
+        shutil.rmtree(".//"+CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video")
+        #Removing Question files
+        if DF_CONFIGURATION.at['Allow_keep_question','Value'] == True:
+            os.remove('.\Question\\'+ CODE + '\\Config.csv')
+            for i in range(NUM_SECTIONS):
+                os.remove('.\Question\\'+ CODE +'\\Questions_section'+str(i+1)+'.csv')
+        else:
+            shutil.rmtree('.\Question\\'+ CODE)
+        
+    else:
+        os.remove(file_name)
+        for i in range(1,av_index):
+            os.remove(CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi")
 
 def submit_test():
     window_close()
@@ -232,7 +283,7 @@ def dynamic_initialization():
     shuffler.initialze_shuffler(DF_CONFIGURATION, NUM_QUESTIONS)
     lmain = tk.Label(video_app_frame, anchor = 'ne')
     lmain.grid(row = 1, column = 1)
-    status = tk.Label(video_app_frame, text = 'The status will show here!', font = STATUS_FONT, width = 27)
+    status = tk.Label(video_app_frame, text = 'All the best for your exam!', font = STATUS_FONT, width = 27)
     status.grid(row = 2, column = 1)
 
 def record_if_suspicious(vid_frame):
@@ -240,7 +291,11 @@ def record_if_suspicious(vid_frame):
     global recording
     global SUSPICIOUS_THRESHOLD
     #get suspicious value here
-    suspicious_value = 0.7
+    suspicious_value = 0.7 #Image_processor.get_suspicion_value(vid_frame)
+    if suspicious_value>=SUSPICIOUS_THRESHOLD:
+        status = tk.Label(video_app_frame, text = 'You are being watched!', bg = 'red', font = STATUS_FONT, width = 27)
+        status.grid(row = 2, column = 1)
+
     #...
     if suspicious_value >= SUSPICIOUS_THRESHOLD:
         if recording == 0:
@@ -275,7 +330,7 @@ def show_timer():
         if warning_1 == 0:
             submit_test()
             return
-        if warning_1 != 2:
+        if warning_1 != 4:
             warning_label = UI_Comp_Functions.display_warning(1, ROOT)
             warning_time = time_lapsed
         warning_1 -=1
@@ -299,22 +354,10 @@ def show_timer():
     timer_label.place(x = 1060, y = 10)
     timer_label.after(500, show_timer)
 
-def window_close():
-    global av_index
-    if recording == 1:
-        AV_Synchronization.stop_AVrecording(filename = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(av_index))
-        av_index += 1
-        AV_Synchronization.file_manager()
-    cap.release()
-    file_name = CODE + "_" + NAME + "_"+ UNIQUE_ID +"_responses.csv"
-    df_responses[1:].to_csv(file_name, index = False)
-    ROOT.destroy()
-    if CODE != 'PRACTICE': 
-        Upload_Submission.upload_submission(fileName = file_name, testCode = CODE, config = DF_CONFIGURATION)#Commented temporarily................................
-        for i in range(1,av_index):
-            Upload_Submission.upload_submission(fileName = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi", testCode = "AAAAAAAA")
 
-def main(name, unique_id, code, test_mode = True):
+
+
+def main(name, unique_id, code):
     define_constants(name, unique_id, code)
     define_initializations()
     dynamic_initialization()
@@ -325,4 +368,4 @@ def main(name, unique_id, code, test_mode = True):
     ROOT.mainloop()
 
 if __name__ == "__main__":
-    main(name = 'Sidhant', unique_id = "201888", code = "H3TH7A86")
+    main(name = 'Sidhant Agarwal', unique_id = "2018811", code = "16KEEF59")

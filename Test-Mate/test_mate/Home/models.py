@@ -23,6 +23,11 @@ class Student(models.Model):
     section3_marks = models.IntegerField(null=True,blank=True)
     total_marks = models.IntegerField(null=True,blank=True)
 
+    section1_total = models.IntegerField(null=True,blank=True)
+    section2_total = models.IntegerField(null=True,blank=True)
+    section3_total = models.IntegerField(null=True,blank=True)
+    overall_total = models.IntegerField(null=True,blank=True)
+
     def __str__(self):
         return self.studentName
 

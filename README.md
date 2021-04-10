@@ -33,8 +33,8 @@ Typing.... &#11088;
 #### Show Information Window:
 
 
-- [ ] Shows the candidate the information about the test like number of sections and if calculator is allowed
-- [ ] Has a timer of 90 second which on lapse starts the test
+- [x] Shows the candidate the information about the test like number of sections and if calculator is allowed
+- [x] Has a timer of 90 second which on lapse starts the test
 
 
 
@@ -52,7 +52,7 @@ Typing.... &#11088;
 - [x] Has timer at the top to show remaining time which turns red in the last 20% time
 - [x] Has a calculator if the teacher allows one
 - [ ] Has the functionality to shuffle order of questions and options if desired
-- [ ] Closes automatically after one warning if application switch is detected after a warning
+- [x] Closes automatically after one warning if application switch is detected after a warning
 - [x] Records audio and video of the candidate
 - [x] Displays a preview of the video being recorded 
 - [ ] The video is processed by AI algorithms using parallel computation for speedup

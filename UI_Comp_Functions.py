@@ -243,6 +243,17 @@ def initialize_ui_components():
     define_constants()
     define_initializations()
 
+def display_warning(warining_code, ROOT):
+    ROOT.focus_force()
+    ROOT.focus_set()
+    ROOT.attributes('-topmost', True)
+
+    if warining_code == 1:
+        warning_label = tk.Label(ROOT, text = "This is a warning!! Please do not try to navigate away from the window else your \ntest will be ended", fg = 'red', padx = 10, font = QUESTION_FONT)
+        warning_label.place(x = 15, y = 600,)
+    return warning_label
+        
+
 if __name__ == '__main__':
     ROOT = tk.Tk()
     define_constants()

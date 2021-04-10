@@ -24,7 +24,7 @@ Typing.... &#11088;
 <details>
 
 - [x] Prompts for the name and unique ID of the candidate
-- [ ] Verifies if the ID format matches the one provided by the Teacher
+- [x] Verifies if the ID format matches the one provided by the Teacher
 
 </details>
 

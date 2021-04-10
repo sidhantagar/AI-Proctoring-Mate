@@ -3,9 +3,9 @@ import tkinter as tk
 import tkinter.font as tkfont
 
 #DEFINE CONSTANTS HERE..
-DF_QUESTIONS = pd.read_csv('./Question/Questions.csv')
-OPTION_FONT = tkfont.Font(family="Comic Sans MS",size=15)
-QUESTION_FONT = tkfont.Font(family="Comic Sans MS",size=20)
+DF_QUESTIONS = None
+OPTION_FONT = None
+QUESTION_FONT = None
 
 #INITIALISE HERE...
 variable = None
@@ -76,3 +76,12 @@ def button_11(question_frame, options_frame, option_var, df_responses):
 def button_12(question_frame, options_frame, option_var, df_responses):
     this_question = DF_QUESTIONS[11:12].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
     view_question (question_frame, options_frame, option_var, this_question, df_responses, 12)
+
+def define_constants():
+    global DF_QUESTIONS, OPTION_FONT, QUESTION_FONT
+    DF_QUESTIONS = pd.read_csv('./Question/Questions.csv')
+    OPTION_FONT = tkfont.Font(family="Comic Sans MS",size=15)
+    QUESTION_FONT = tkfont.Font(family="Comic Sans MS",size=20)
+
+def initialize_ui_components():
+    define_constants()

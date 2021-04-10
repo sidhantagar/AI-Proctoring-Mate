@@ -10,50 +10,86 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import tkinter.font as tkfont
 import pandas as pd
-import AV_Syncronization
+import AV_Synchronization
+import UI_Comp_Functions
 
-#DEFFINE CONSTANTS HERE..
-Q_WIDTH = 8
-N_WIDTH = 11
-HEIGHT = 2
-PADX = 3
-PADY = 2
-ROOT = tk.Tk()
-SUSPICIOUS_THRESHOLD = 0.5
-STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
-BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
-CONTRAST_COLOURS = {-1 : 'white', 0 : 'white', 1 : 'black', 2 : 'black', 3 : 'black', 4 : 'black'}
-DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red', 1 : 'green', 2 : 'green', 3 : 'green', 4 : 'green'}
-CALCULATOR_ICON = cv2.imread(r'UI_Images\calculator.jpg')
-CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(CALCULATOR_ICON, (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
+NAME = None
+UNIQUE_ID = None
+Q_WIDTH = None
+N_WIDTH = None
+HEIGHT = None
+PADX = None
+PADY = None
+ROOT = None
+SUSPICIOUS_THRESHOLD = None
+STATUS_FONT = None
+BUTTON_FONT = None
+CONTRAST_COLOURS = None
+DICTIONARY_COLOURS = None
+CALCULATOR_ICON = None
+
+def define_constants(name, unique_id):
+    global Q_WIDTH, N_WIDTH, HEIGHT, PADX, PADY, ROOT, SUSPICIOUS_THRESHOLD, STATUS_FONT, BUTTON_FONT, CONTRAST_COLOURS, DICTIONARY_COLOURS, CALCULATOR_ICON, NAME, UNIQUE_ID
+    NAME = name
+    UNIQUE_ID = unique_id
+    Q_WIDTH = 8
+    N_WIDTH = 11
+    HEIGHT = 2
+    PADX = 3
+    PADY = 2
+    ROOT = tk.Tk()
+    ROOT.minsize(1400,800)
+    ROOT.protocol("WM_DELETE_WINDOW", window_close)
+    SUSPICIOUS_THRESHOLD = 0.5
+    STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
+    BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
+    CONTRAST_COLOURS = {-1 : 'white', 0 : 'white', 1 : 'black', 2 : 'black', 3 : 'black', 4 : 'black'}
+    DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red', 1 : 'green', 2 : 'green', 3 : 'green', 4 : 'green'}
+    CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(cv2.imread(r'UI_Images\calculator.jpg'), (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
+
 
 
 #INITIALISE HERE
-av_index = 1
-recording = 0 
+av_index = None
+recording = None
+cap = None
+aud = None
+vid_frame_width = None
+vid_frame_height = None
+option_variable = None
+video_app_frame = None
+question_frame = None
+options_frame = None
+navigation_frame_1 = None
+df_responses = None
+calculator = None
+lmain = None
+status = None
 
-cap = cv2.VideoCapture(0)
-aud = pyaudio.PyAudio()
-vid_frame_width = int(cap.get(3))
-vid_frame_height = int(cap.get(4))
+def define_initializations():
+    global av_index, recording, cap, aud, vid_frame_width, vid_frame_height, option_variable, video_app_frame, question_frame, options_frame, navigation_frame_1, df_responses, calculator
+    av_index = 1
+    recording = 0 
 
-ROOT.minsize(1400,800)
+    cap = cv2.VideoCapture(0)
+    aud = pyaudio.PyAudio()
+    vid_frame_width = int(cap.get(3))
+    vid_frame_height = int(cap.get(4))
+    video_app_frame = tk.Frame(ROOT)
+    video_app_frame.place (x = 1070, y = 60)
+    question_frame = tk.Frame(ROOT)
+    question_frame.place(x = 15, y = 10)
+    options_frame = tk.Frame(ROOT)
+    options_frame.place(x = 15, y = 130)
+    navigation_frame_1 = tk.Frame(ROOT)
+    navigation_frame_1.place(x = 1070, y = 380)
+    option_variable = tk.IntVar()
+    df_responses = pd.DataFrame([[0,-1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1]],columns = ['Question', 'Response'])
+    df_responses.set_index('Question')
+    calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = None)
+    calculator.place(x = 1347, y = 1)
 
-video_app_frame = tk.Frame(ROOT)
-video_app_frame.place (x = 1070, y = 60)
-question_frame = tk.Frame(ROOT)
-question_frame.place(x = 15, y = 10)
-options_frame = tk.Frame(ROOT)
-options_frame.place(x = 15, y = 130)
-navigation_frame_1 = tk.Frame(ROOT)
-navigation_frame_1.place(x = 1070, y = 380)
-option_variable = tk.IntVar()
-df_responses = pd.DataFrame([[0,-1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1]],columns = ['Question', 'Response'])
-df_responses.set_index('Question')
-calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = None)
-calculator.place(x = 1347, y = 1)
 
-import UI_Comp_Functions
 
 
 #Pseudofunctions for UI components
@@ -219,17 +255,12 @@ def button_12():
     next_button.place(x = 900, y = 700)
     UI_Comp_Functions.button_12(question_frame, options_frame, option_variable, df_responses)
 
-
-#INITIALISER FUNCTIONS
-reset_config()
-button_1()
-
-
-#DYNAMIC COMPONENTS..
-lmain = tk.Label(video_app_frame, anchor = 'ne')
-lmain.grid(row = 1, column = 1)
-status = tk.Label(video_app_frame, text = 'The status will show here!', font = STATUS_FONT, width = 27)
-status.grid(row = 2, column = 1)
+def dynamic_initialization():
+    global lmain,status
+    lmain = tk.Label(video_app_frame, anchor = 'ne')
+    lmain.grid(row = 1, column = 1)
+    status = tk.Label(video_app_frame, text = 'The status will show here!', font = STATUS_FONT, width = 27)
+    status.grid(row = 2, column = 1)
 
 
 def record_if_suspicious(vid_frame):
@@ -263,11 +294,16 @@ def window_close():
         AV_Syncronization.stop_AVrecording(filename = 'video_'+ str(av_index))
         AV_Syncronization.file_manager()
     cap.release()
-    df_responses[1:].to_csv("Filled_Responses.csv", index = False)
+    df_responses[1:].to_csv(NAME + "_"+ UNIQUE_ID +"_responses.csv", index = False)
     ROOT.destroy()
-ROOT.protocol("WM_DELETE_WINDOW", window_close)
 
-def Main():
+def main(name = 'Sidhant Agarwal', unique_id = "20188028"):
+    define_constants(name, unique_id)
+    define_initializations()
+    dynamic_initialization()
+    UI_Comp_Functions.initialize_ui_components()
+    reset_config()
+    button_1()
     base_function()
     ROOT.mainloop()
 

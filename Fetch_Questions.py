@@ -1,40 +1,40 @@
 #IMPORT HERE..
 import os
-import requests
-from google_drive_downloader import GoogleDriveDownloader as gdd
+import time
+from zipfile import ZipFile 
+from selenium import webdriver
 
 #DEFINE CONSTANTS HERE..
-SHORTNER = 'http://bit.ly/'
+URL = 'http://localhost:8000/CollectMaterial/'
 PATH = os.getcwd()
 
-def remove_redundant_files():
-    try:
-        os.remove(str(PATH)+"/Question/Config.csv")
-    except:
-        pass
-    finally:
-        pass    
-    try:
-        os.remove(str(PATH)+"/Question/Questions.csv")
-    except:
-        pass
-    finally:
-        pass
+def fetch_questions(code):
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {'download.default_directory' : PATH+"\Question"}
+    chrome_options.add_experimental_option('prefs', prefs)
+    driver = webdriver.Chrome(executable_path= PATH +"\\chromedriver_win32\\chromedriver.exe", chrome_options= chrome_options)
+    driver.implicitly_wait(20)
+    driver.get(URL)
+    if __name__ != "__main__":
+        driver.minimize_window()
+    uploader = driver.find_element_by_id("test_code")
+    uploader.send_keys(code)
+    driver.find_element_by_id("submit").click()
+    time.sleep(2)
+    status = driver.current_url[-4:]
+    driver.close()
+    driver.quit()
 
-def fetch_questions(code = '3uibkub'):
-    remove_redundant_files()    #Removes old data files
-    r = requests.get(SHORTNER+code)
-    url = r.url
-    if __name__ == '__main__':
-        print(url)
-    for i in url.split('/'):
-        if len(i) >= 30:
-            id = i
-    if __name__ == '__main__':
-        print(id)
+    if  status == "True":
+        return False
+    else:
+        os.mkdir(PATH+"\\Question\\"+ code)
+        with ZipFile(PATH+"\Question\Question.zip","r") as zip_ref:
+            zip_ref.extractall(PATH+"\\Question\\"+ code)
+        os.remove(PATH+"\Question\Question.zip")
+        return True    
 
-    gdd.download_file_from_google_drive(file_id = id, dest_path = './question.zip', unzip = True)
-    os.remove(str(PATH) + "/question.zip")
 
 if __name__ == '__main__':
-    fetch_questions()
+    print(PATH)
+    print(fetch_questions(code = 'FF5G9Z22'))

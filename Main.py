@@ -118,7 +118,7 @@ def define_initializations():
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
     calculator_status = "closed"
-    time_lapsed = 13*60+20
+    time_lapsed = 13*60
     warning_1 = 2
 
 def reset_section_config():
@@ -260,7 +260,8 @@ def show_timer():
         submit_test()
         return
     if __name__ == '__main__':
-        print(time_lapsed)
+        #print(time_lapsed)
+        pass
     if ROOT.focus_get() == None:
         if __name__ == '__main__':
             print("Trying")
@@ -292,14 +293,18 @@ def show_timer():
     timer_label.after(500, show_timer)
 
 def window_close():
+    global av_index
     if recording == 1:
         AV_Synchronization.stop_AVrecording(filename = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(av_index))
+        av_index += 1
         AV_Synchronization.file_manager()
     cap.release()
     file_name = CODE + "_" + NAME + "_"+ UNIQUE_ID +"_responses.csv"
     df_responses[1:].to_csv(file_name, index = False)
     ROOT.destroy()
-    #Upload_Submission.upload_submission(fileName = file_name, testCode = CODE)          #Commented temporarily................................
+    for i in range(1,av_index):
+        Upload_Submission.upload_submission(fileName = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(i)+".avi", testCode = "AAAAAAAA")
+    Upload_Submission.upload_submission(fileName = file_name, testCode = CODE, config = DF_CONFIGURATION)#Commented temporarily................................
 
 def main(name, unique_id, code):
     define_constants(name, unique_id, code)
@@ -308,8 +313,8 @@ def main(name, unique_id, code):
     UI_Comp_Functions.initialize_ui_components()
     load_section(1)
     show_timer()
-    #base_function() #Commented temporarily................................
+    base_function() #Commented temporarily................................
     ROOT.mainloop()
 
 if __name__ == "__main__":
-    main(name = 'Sidhant Agarwal', unique_id = "20188028", code = "3uibkub")
+    main(name = 'Sidhant Agarwal', unique_id = "20188028", code = "9V1FQNU7")

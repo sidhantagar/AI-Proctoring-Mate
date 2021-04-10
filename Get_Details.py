@@ -57,14 +57,14 @@ def submit_details(event = None): #Button Function
         print("Name : ", name)
     if __name__ == '__main__':
         print("Unique id : ", unique_id)
-    valid = Verify_Details.verify_details(unique_id)
+    valid = Verify_Details.verify_details(unique_id, CODE)
     if valid:
         window_close()
         Instruction_Menu.instruction_menu(name, unique_id, CODE)
     else:
         error_label = tk.Label(ROOT, text = "The (Unique ID/Reg No.) you have entered is not valid!!",fg = 'red' , padx = 10, font = ERROR_FONT)
         error_label.place(x = 0, y = 190)
-        if event != None:
+        if event != None: #To handle when data is entered with the enter button
             id_text.destroy()
             id_text = tk.Text(ROOT, height = 1, width = WIDTH, font = DETIALS_FONT2, spacing1 = 5, spacing3 = 5)
             id_text.bind("<Return>", submit_details)

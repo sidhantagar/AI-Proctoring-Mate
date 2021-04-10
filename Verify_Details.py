@@ -5,13 +5,13 @@ import pandas as pd
 DF_CONFIGURATION = None
 ID_FORMAT = None
 
-def define_constants():
+def define_constants(CODE):
     global DF_CONFIGURATION, ID_FORMAT
-    DF_CONFIGURATION = pd.read_csv('./Question/Config.csv').set_index("Name")[['Value']]
+    DF_CONFIGURATION = pd.read_csv("./Question/" + CODE + "/Config.csv").set_index("Name")[['Value']]
     ID_FORMAT = DF_CONFIGURATION.at['Id_format','Value']
 
-def verify_details(unique_id):
-    define_constants()
+def verify_details(unique_id, CODE):
+    define_constants(CODE)
     if __name__ == '__main__':
         print(ID_FORMAT)
     if len(unique_id) != len(ID_FORMAT):

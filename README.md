@@ -12,7 +12,7 @@
   <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
   
 ## Presentation Link:
-  <a href="https://docs.google.com/presentation/d/1NEbqpM6J6UkmHN_J6NsgOhKvDU6fkfnli4OIg1lh-pk/edit?usp=sharing"> ppt link here </a>
+  <a href="https://drive.google.com/file/d/1Mz-T13XT33YgwE-34xKqBQ-fnPwoy4Y_/view?usp=sharing"> AI-Proctoring-Mate PPT </a>
   
   
 ## Table of Contents:

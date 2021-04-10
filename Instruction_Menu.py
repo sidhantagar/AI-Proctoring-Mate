@@ -30,7 +30,7 @@ def define_constants(name, unique_id, code):
     NAME = name
     UNIQUE_ID = unique_id
     CODE = code
-    DF_CONFIGURATION = pd.read_csv('./Question/Config.csv').set_index("Name")[['Value']]
+    DF_CONFIGURATION = pd.read_csv("./Question/" + CODE + "/Config.csv").set_index("Name")[['Value']]
     HEADING_FONT = tkfont.Font(family = "Comic Sans MS", size = 20)
     INSTRUCTION_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
     SUBINSTRUCTION_FONT = tkfont.Font(family = "Comic Sans MS", size = 12)

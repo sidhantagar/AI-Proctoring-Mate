@@ -94,7 +94,7 @@ def define_initializations():
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
     calculator_status = "closed"
-    time_lapsed = 14*60+40
+    time_lapsed = 13*60+20
 
 def reset_config():
     global calculator_status
@@ -403,7 +403,7 @@ def main(name = 'Sidhant Agarwal', unique_id = "20188028"):
     reset_config()
     button_1()
     show_timer()
-    base_function() #Commented temporarily................................
+    #base_function() #Commented temporarily................................
     ROOT.mainloop()
 
 if __name__ == "__main__":

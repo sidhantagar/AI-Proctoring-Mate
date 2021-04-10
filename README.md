@@ -28,6 +28,14 @@ Typing.... &#11088;
 
 </details>
 
+#### Show Information Window:
+<details>
+
+- [ ] Shows the candidate the information about the test like number of sections and if calculator is allowed
+- [ ] Has a timer of 90 second which on lapse starts the test
+
+</details>
+
 #### Main Exam Window:
 <details>
 

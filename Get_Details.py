@@ -3,11 +3,13 @@ import tkinter.font as tkfont
 from Verify_Details import verify_details
 from Main import main
 #DEFINE CONSTANTS HERE.. 
+CODE = None
 ROOT = None
 WIDTH = None
 ERROR_FONT = None
 DETAILS_FONT1 = None
 DETIALS_FONT2 = None
+
 
 #INITIALISE HERE
 name_text = None
@@ -57,7 +59,7 @@ def submit_details(event = None):
     valid = verify_details(unique_id)
     if valid:
         window_close()
-        main(name, unique_id)
+        main(name, unique_id, CODE)
     else:
         error_label = tk.Label(ROOT, text = "The (Unique ID/Reg No.) you have entered is not valid!!",fg = 'red' , padx = 10, font = ERROR_FONT)
         error_label.place(x = 0, y = 190)
@@ -69,8 +71,9 @@ def submit_details(event = None):
             id_text.insert("end-1c", unique_id[:len(unique_id)])
 
 
-def define_constants():
-    global ROOT, DETAILS_FONT1, DETIALS_FONT2, WIDTH, ERROR_FONT
+def define_constants(code):
+    global ROOT, DETAILS_FONT1, DETIALS_FONT2, WIDTH, ERROR_FONT, CODE
+    CODE = code
     WIDTH = 34
     ROOT = tk.Tk()
     ROOT.minsize(467, 275)
@@ -80,8 +83,8 @@ def define_constants():
     ROOT.protocol("WM_DELETE_WINDOW", window_close)
 
 
-def get_details():
-    define_constants()
+def get_details(code = "3uibkub"):
+    define_constants(code)
     display_components()
     ROOT.mainloop()
 

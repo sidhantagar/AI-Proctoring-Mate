@@ -33,7 +33,7 @@ def submit_code(event = None):
         print(code)
     fetch_questions(code)
     window_close()
-    get_details()
+    get_details(code)
 
 def define_constants():
     global ROOT, CODE_FONT1, CODE_FONT2

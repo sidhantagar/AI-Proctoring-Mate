@@ -5,7 +5,6 @@ import tkinter.font as tkfont
 #DEFINE CONSTANTS HERE..
 PADX = None
 PADY = None
-DF_QUESTIONS = None
 OPTION_FONT = None
 QUESTION_FONT = None
 CALCULATOR_FONT = None
@@ -18,6 +17,7 @@ responses = None
 select = None
 calc_textbox = None
 calling_question = None
+df_questions = None
 
 def selected():
     responses['Response'][calling_question] = variable.get()
@@ -46,42 +46,10 @@ def view_question(question_frame, options_frame, option_var, this_question, df_r
     op4.grid(row = 4, column = 1, sticky = 'W')
     variable.set(df_responses['Response'][active_question])
 
-def button_1(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[0:1].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question(question_frame, options_frame, option_var, this_question, df_responses, 1)
-def button_2(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[1:2].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 2)
-def button_3(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[2:3].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 3)
-def button_4(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[3:4].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 4)
-def button_5(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[4:5].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 5)
-def button_6(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[5:6].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 6)
-def button_7(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[6:7].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 7)
-def button_8(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[7:8].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 8)
-def button_9(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[8:9].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 9)
-def button_10(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[9:10].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 10)
-def button_11(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[10:11].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 11)
-def button_12(question_frame, options_frame, option_var, df_responses):
-    this_question = DF_QUESTIONS[11:12].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
-    view_question (question_frame, options_frame, option_var, this_question, df_responses, 12)
+def button_num(question_frame, options_frame, option_var, df_responses, question_num):
+    this_question = df_questions[question_num-1 : question_num].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
+    view_question(question_frame, options_frame, option_var, this_question, df_responses, question_num)
+
 
 def display_calculator(navigation_frame_1):
     global calc_textbox
@@ -228,17 +196,21 @@ def calculator_b20():
     calculator_justify()
 
 def define_constants():
-    global DF_QUESTIONS, OPTION_FONT, QUESTION_FONT, CALCULATOR_FONT, CALCULATOR_BUTTON_WIDTH, CALCULATOR_BUTTON_FONT, PADX, PADY, HEIGHT
+    global df_questions, OPTION_FONT, QUESTION_FONT, CALCULATOR_FONT, CALCULATOR_BUTTON_WIDTH, CALCULATOR_BUTTON_FONT, PADX, PADY, HEIGHT
     PADX = 1
     PADY = 1
     HEIGHT = 1
     CALCULATOR_BUTTON_WIDTH = 5
-    DF_QUESTIONS = pd.read_csv('./Question/Questions.csv')
     OPTION_FONT = tkfont.Font(family="Comic Sans MS",size=15)
     QUESTION_FONT = tkfont.Font(family="Comic Sans MS",size=20)
     CALCULATOR_FONT = tkfont.Font(family = "Comic Sans MS", size = 12)
     CALCULATOR_BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
 
+def select_question_set(section):
+    global df_questions
+    if  __name__ == '__main__':
+        print("loading" + str(section) + "set")
+    df_questions = pd.read_csv('./Question/Questions_section'+ str(section) +'.csv')
 
 def initialize_ui_components():
     define_constants()
@@ -246,6 +218,7 @@ def initialize_ui_components():
 if __name__ == '__main__':
     ROOT = tk.Tk()
     define_constants()
+    select_question_set(1)
     ROOT.minsize(1400,800)
     ROOT.protocol("WM_DELETE_WINDOW", ROOT.destroy)
     navigation_frame_1 = tk.Frame(ROOT)

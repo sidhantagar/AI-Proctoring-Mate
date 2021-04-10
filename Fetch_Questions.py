@@ -1,7 +1,9 @@
+#IMPORT HERE..
 import os
 import requests
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
+#DEFINE CONSTANTS HERE..
 SHORTNER = 'http://bit.ly/'
 PATH = os.getcwd()
 
@@ -20,7 +22,7 @@ def remove_redundant_files():
         pass
 
 def fetch_questions(code = '3uibkub'):
-    remove_redundant_files()
+    remove_redundant_files()    #Removes old data files
     r = requests.get(SHORTNER+code)
     url = r.url
     if __name__ == '__main__':

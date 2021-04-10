@@ -1,14 +1,16 @@
+#IMPORT HERE..
 from selenium import webdriver
 import os
 import File_Remover
 
+#DEFINE CONSTANTS HERE..
 TEST_CODE = None
 FILE_NAME = None
 PATH = None
 URL = None
 
 def upload_file():
-    driver = webdriver.Chrome(executable_path=r".\chromedriver_win32\chromedriver.exe")
+    driver = webdriver.Chrome(executable_path= PATH +"\\chromedriver_win32\\chromedriver.exe")
     driver.implicitly_wait(20)
     if __name__ != "__main__":
         driver.minimize_window()
@@ -33,4 +35,4 @@ def upload_submission(fileName, testCode):
     
 
 if __name__=='__main__':
-    upload_submission(fileName = "Sidhant Agarwal_20188028_responses.csv", testCode = "3uibkub")
+    upload_submission(fileName = "3uibkub_Sidhant-Agarwal_20188028_responses.csv", testCode = "3uibkub")

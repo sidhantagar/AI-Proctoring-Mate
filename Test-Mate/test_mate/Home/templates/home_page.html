@@ -5,10 +5,13 @@
 <!-- Header -->
 
 {% block header %}
-  <h1>Hi, I'm <strong>Photon</strong>, another fine<br />
-  little freebie from <a href="http://html5up.net">HTML5 UP</a>.</h1>
-  <p>Accumsan feugiat mi commodo erat lorem ipsum, sed magna<br />
-  lobortis feugiat sapien sed etiam volutpat accumsan.</p>
+  <h1>
+    Hi, I'm <strong>TestMate</strong>, an AI-based proctoring <br/>
+    software to help teachers take online exams</h1>
+  <p>
+    In these new times, taking online tests and preventing cheating in them has become a huge challenge for the teachers.<br/>
+    Thus we wanted to develop an AI based proctoring which is not only easy to usenfor teachers less familiar with computers,<br/> 
+    but also makes an improvement over the existing AI Proctors</p>
 {% endblock %}
 
 <!-- Section One -->
@@ -16,10 +19,11 @@
 {% block section-1 %}
   <div class="col-6 col-12-medium">
     <header class="major">
-      <h2>Lorem ipsum dolor adipiscing<br />
-      amet dolor consequat</h2>
+      <h2>Why our AI is better?</h2>
+      <h3>A glimpse of our AI.</h3>
     </header>
-    <p>Adipiscing a commodo ante nunc accumsan et interdum mi ante adipiscing. A nunc lobortis non nisl amet vis sed volutpat aclacus nascetur ac non. Lorem curae et ante amet sapien sed tempus adipiscing id accumsan.</p>
+    <p>Our aim while developing this project was to think like a candidate and the ways in which a candidate could cheat and then coming up with measures to counter them <strong>without use of any other external equipment</strong>. <br/>
+      Our AI uses a combination of strong image processing algorithms as well as sound processing algorithms to effectively detect cheating.</p>
   </div>
   <div class="col-6 col-12-medium imp-medium">
     <span class="image fit"> <iframe src="{% static 'Results After Final Caliberation.mp4' %}" width="400px;" height="300px;"></iframe></span>
@@ -44,8 +48,7 @@
         </div>
         <div class="col-6 col-12-medium">
           <header class="major">
-            <h2>Lorem ipsum dolor adipiscing<br />
-            amet dolor consequat</h2>
+            <h2>Few of the many features of our project:</h2>
           </header>
           <p>Adipiscing a commodo ante nunc accumsan interdum mi ante adipiscing. A nunc lobortis non nisl amet vis volutpat aclacus nascetur ac non. Lorem curae eu ante amet sapien in tempus ac. Adipiscing id accumsan adipiscing ipsum.</p>
           <p>Blandit faucibus proin. Ac aliquam integer adipiscing enim non praesent vis commodo nunc phasellus cubilia ac risus accumsan. Accumsan blandit. Lobortis phasellus non lobortis dit varius mi varius accumsan lobortis. Blandit ante aliquam lacinia lorem lobortis semper morbi col faucibus vitae integer placerat accumsan orci eu mi odio tempus adipiscing adipiscing adipiscing curae consequat feugiat etiam dolore.</p>
@@ -62,12 +65,15 @@
   <header class="major">
     <h2>About Us</h2>
   </header>
-  <p>Ante nunc accumsan et aclacus nascetur ac ante amet sapien sed.</p>
+  <p>We are a group of tech geeks with hands on experience in multiple fields.</p>
   <div class="row gtr-150">
     <div class="col-4 col-12-medium">
       <span class="image fit"><img src="{% static 'Home/images/pic02.jpg' %}" alt="" /></span>
-      <h3>Siddhant Agarwal</h3>
-      <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+      <h3>Sidhant Agarwal</h3>
+      <p>
+        I am currently persuing B.Tech from MNNIT.<br/><br/>
+        I have a hands on experince in Machine and reinforcement learning. I have designed the candidate side UI of this project.
+      </p>
       <ul class="actions special">
         <li><a href="https://www.linkedin.com/in/sidhantagarwal/" target="_blank" class="button"><img height="24px" width="24px" src="{% static 'linkedin.gif' %}" alt="linkedin"> Profile</a></li>
       </ul>
@@ -75,7 +81,10 @@
     <div class="col-4 col-12-medium">
       <span class="image fit"><img src="{% static 'Home/images/pic03.jpg' %}" alt="" /></span>
       <h3>Deepanshu Raj</h3>
-      <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+      <p>
+        I am currently persuing B.Tech from MNNIT.<br/><br/>
+        I have a hands on experince in Machine and learning web development. I handled the complete server side integration.
+      </p>     
       <ul class="actions special">
         <li><a href="https://www.linkedin.com/in/deepanshuraj799/" target="_blank" class="button"><img height="24px" width="24px" src="{% static 'linkedin.gif' %}" alt="linkedin"> Profile</a></li>
       </ul>
@@ -83,7 +92,10 @@
     <div class="col-4 col-12-medium">
       <span class="image fit"><img src="{% static 'Home/images/pic04.jpg' %}" alt="" /></span>
       <h3>Vivek Rai</h3>
-      <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+      <p>
+        I am currently persuing B.Tech from MNNIT.<br/><br/>
+        I have a hands on experince in Machine and deep learning. I designed of the AI algorithms used for cheat detection.
+      </p>  
       <ul class="actions special">
         <li><a href="https://www.linkedin.com/in/vivekrai007/" target="_blank" class="button"><img height="24px" width="24px" src="{% static 'linkedin.gif' %}" alt="linkedin"> Profile</a></li>
       </ul>
@@ -95,9 +107,9 @@
 
 {% block section-4 %}
   <header class="major">
-    <h2>Ipsum feugiat consequat?</h2>
+    <h2>Are you ready to unlock the power of our AI?</h2>
   </header>
-  <p>Sed lacus nascetur ac ante amet sapien.</p>
+  <p>Sign up for our software and embrace the advantages of new online world without bearing the downsides of the same.</p>
   <ul class="actions special">
     <li><a href="{% url 'login_page' %}" class="button wide primary">Sign In</a></li>
     <li><a href="{% url 'registration_page' %}" class="button wide">Sign Up</a></li>
@@ -109,11 +121,8 @@
 {% block footer %}
   <section id="footer">
     <ul class="icons">
-      <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+      <li><a href="https://github.com/sidhantagar/AI-Proctoring-Mate" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
       <li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-    </ul>
-    <ul class="copyright">
-      <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
     </ul>
   </section>
 {% endblock %}

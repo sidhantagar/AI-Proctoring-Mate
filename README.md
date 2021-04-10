@@ -57,7 +57,7 @@ Typing.... &#11088;
 - [x] Displays a preview of the video being recorded 
 - [ ] The video is processed by AI algorithms using parallel computation for speedup
 - [ ] Generates a ultrasound pulse and records its amplitude at regular intervals
-- [ ] Uploads the response file as well as video files of the candidate
+- [x] Uploads the response file as well as video files of the candidate
 - [ ] Removes unnecessary files
 
 

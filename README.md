@@ -41,14 +41,19 @@ Team Name: **Apunich bhagwan ha**
 
 Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
-## AI Proctoring Progress:
+## AI Proctoring:
   
 <strong>Description:</strong><br>
-<code>
-Typing.... &#11088;
-</code>
+<p>...</p>
+
 
 ### UI Components:
+
+<code>This is part 1 of <b>AI-PROCTORING-MATE</b> Application</code>
+
+<strong>Description:</strong><br>
+<p>...</p>
+
 <details>
   <summary>:zap: <strong>Proposed Features </strong> </summary>
 

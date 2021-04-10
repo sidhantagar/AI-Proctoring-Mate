@@ -702,11 +702,11 @@ def ResponseDetailsView(request,code=None):
         student = Student.objects.get(Response = response)
 
         student.section1_marks = student_metrics[0]
-        if(student_metrics[1]):
+        if student_metrics[1] != "no" :
             student.section2_marks = student_metrics[1]
         else:
             student.section2_marks = None
-        if(student_metrics[2]):
+        if student_metrics[2] != "no":
             student.section3_marks = student_metrics[2]
         else:
             student.section3_marks = None

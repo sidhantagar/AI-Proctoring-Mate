@@ -99,9 +99,9 @@ def evaluate_this(ans_list,response_df,marking_list):
                     pass
 
         else:
-            student_metric[i] = False
+            student_metric[i] = "no"
 
-        if(student_metric[i]):
+        if student_metric[i] and student_metric[i] != "no":
             val += student_metric[i]
 
     # total marks Update

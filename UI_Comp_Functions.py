@@ -18,9 +18,10 @@ select = None
 calc_textbox = None
 calling_question = None
 df_questions = None
+active_section = None
 
 def selected():
-    responses['Response'][calling_question] = variable.get()
+    responses['Response_section_' + str(active_section)][calling_question] = variable.get()
     #print("The option selected is "+ str(variable.get())) 
 
 def extend_text(text):
@@ -44,7 +45,7 @@ def view_question(question_frame, options_frame, option_var, this_question, df_r
     op3.grid(row = 3, column = 1, sticky = 'W')
     op4 = tk.Radiobutton(options_frame, text = extend_text('D. '+this_question['Option_4'][0]), variable=option_var, value=4,command=selected, font = OPTION_FONT)
     op4.grid(row = 4, column = 1, sticky = 'W')
-    variable.set(df_responses['Response'][active_question])
+    variable.set(df_responses['Response_section_' + str(active_section)][active_question])
 
 def button_num(question_frame, options_frame, option_var, df_responses, question_num):
     this_question = df_questions[question_num-1 : question_num].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4']]
@@ -207,9 +208,10 @@ def define_constants():
     CALCULATOR_BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
 
 def select_question_set(section):
-    global df_questions
+    global df_questions, active_section
     if  __name__ == '__main__':
         print("loading" + str(section) + "set")
+    active_section = section
     df_questions = pd.read_csv('./Question/Questions_section'+ str(section) +'.csv')
 
 def initialize_ui_components():

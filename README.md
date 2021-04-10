@@ -44,12 +44,13 @@ Typing.... &#11088;
 - [x] Has buttons for each question for navigation directly to the question
 - [x] These buttons change color depending on question status
 - [x] Has next and previous buttons for navigation
-- [ ] Has 3 different sections with the ability to give different marking schemes for each section
+- [x] Has 3 different sections with the ability to give different marking schemes for each section
 - [ ] Buttons at the top of UI to change section as well as the through next button of lest question
 - [x] Has the option to bookmark question which displays a bookmark over the question button
 - [x] Has timer at the top to show remaining time which turns red in the last 20% time
 - [x] Has a calculator if the teacher allows one
-- [ ] Closes automatically after one warning if tab switch is detected.
+- [ ] Has the functionality to shuffle order of questions and options if desired
+- [ ] Closes automatically after one warning if application switch is detected after a warning
 - [x] Records audio and video of the candidate
 - [x] Displays a preview of the video being recorded 
 - [ ] The video is processed by AI algorithms using parallel computation for speedup

@@ -105,7 +105,10 @@ def define_initializations():
     navigation_frame_1 = tk.Frame(ROOT)
     navigation_frame_1.place(x = 1070, y = 350)
     option_variable = tk.IntVar()
-    df_responses = pd.DataFrame({"Question": np.arange(0, NUM_QUESTIONS+1, dtype = int),"Response": [-1]*(NUM_QUESTIONS+1), "Marked" : [False]*(NUM_QUESTIONS+1)})
+    df_responses = pd.DataFrame()
+    for i in range(1, (NUM_SECTIONS+1)):
+        df_responses["Response_section_" + str(i)] = [-1]*(NUM_QUESTIONS+1)
+        df_responses["Marked_section_" + str(i)] = [False]*(NUM_QUESTIONS+1)
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
     section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'raised', bd = 4, font = STATUS_FONT)
@@ -130,8 +133,8 @@ def reset_config():
         reset_navigation_frame()
     button_icons = []
     for i in range(1, NUM_QUESTIONS+1):
-        button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked'][i], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response'][i]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response'][i]]]))))
-        button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response'][i]])
+        button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked_section_' + str(active_section)][i], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][i]]]))))
+        button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]])
         button.grid(column = ((i-1)%3)+1, row = (i + 2)//3, padx = PADX, pady = PADY)
 
 def submit_test():
@@ -155,19 +158,19 @@ def calc_function():
 def button_num(question_num):
     global button_img
     def clear_response():
-        df_responses['Response'][question_num] = 0
+        df_responses['Response_section_' + str(active_section)][question_num] = 0
         button_num(question_num)
     def mark_question():
-        df_responses['Marked'][question_num] = True
+        df_responses['Marked_section_' + str(active_section)][question_num] = True
         button_num(question_num)
     def unmark_question():
-        df_responses['Marked'][question_num] = False
+        df_responses['Marked_section_' + str(active_section)][question_num] = False
         button_num(question_num)
-    if (df_responses['Response'][question_num] == -1):
-        df_responses['Response'][question_num] = 0
+    if (df_responses['Response_section_' + str(active_section)][question_num] == -1):
+        df_responses['Response_section_' + str(active_section)][question_num] = 0
     reset_config()
-    button_img = ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = question_num, marked_for_review = df_responses['Marked'][question_num], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response'][question_num]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response'][question_num]]])))
-    button = tk.Button(navigation_frame_1, text = "", image = button_img, relief = 'sunken', bd = 4, command = partial(button_num, question_num), bg = DICTIONARY_COLOURS[df_responses['Response'][question_num]])    
+    button_img = ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = question_num, marked_for_review = df_responses['Marked_section_' + str(active_section)][question_num], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]]])))
+    button = tk.Button(navigation_frame_1, text = "", image = button_img, relief = 'sunken', bd = 4, command = partial(button_num, question_num), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]])    
     button.grid(column = ((question_num - 1)%3)+1, row = (question_num + 2)//3, padx = PADX, pady = PADY)
     if question_num == 1:
         previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = None, relief = 'raised', bd = 4, font = STATUS_FONT, state = 'disabled')
@@ -247,20 +250,20 @@ def window_close():
         AV_Synchronization.file_manager()
     cap.release()
     file_name = NAME + "_"+ UNIQUE_ID +"_responses.csv"
-    df_responses[["Question", "Response"]][1:].to_csv(file_name, index = False)
+    df_responses[1:].to_csv(file_name, index = False)
     ROOT.destroy()
     #Upload_Submission.upload_submission(fileName = file_name, testCode = CODE)          #Commented temporarily................................
 
-def main(name = 'Sidhant Agarwal', unique_id = "20188028", code = "3uibkub"):
-    define_constants(name, unique_id, CODE)
+def main(name, unique_id, code):
+    define_constants(name, unique_id, code)
     define_initializations()
     dynamic_initialization()
     UI_Comp_Functions.initialize_ui_components()
-    reset_config()
     load_section(1)
+    reset_config()
     show_timer()
     #base_function() #Commented temporarily................................
     ROOT.mainloop()
 
 if __name__ == "__main__":
-    main()
+    main(name = 'Sidhant Agarwal', unique_id = "20188028", code = "3uibkub")

@@ -3,10 +3,8 @@
 
 #IMPORT HERE..
 import cv2
-import PIL
-import copy
-import numpy as np
 import pyaudio
+import shuffler
 import tkinter as tk
 from PIL import Image, ImageTk
 import tkinter.font as tkfont
@@ -17,6 +15,7 @@ import Upload_Submission
 from functools import partial
 import Render_Button
 
+#DEFINE CONSTANTS HERE..
 CODE = None
 NAME = None
 UNIQUE_ID = None
@@ -38,6 +37,7 @@ NUM_QUESTIONS = None
 NUM_SECTIONS = None
 NAME_TO_RGB = None
 
+#INITIALISE GLOBAL VARIABLES HERE..
 button_icons = None
 av_index = None
 recording = None
@@ -153,8 +153,9 @@ def reset_config():
         reset_navigation_frame()
     button_icons = []
     for i in range(1, NUM_QUESTIONS[active_section-1]+1):
-        button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked_section_' + str(active_section)][i], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][i]]]))))
-        button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]])
+        active_question = shuffler.shuffle_question_num(i,active_section)
+        button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked_section_' + str(active_section)][active_question], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]]))))
+        button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]])
         button.grid(column = ((i-1)%3)+1, row = (i + 2)//3, padx = PADX, pady = PADY)
 
 def submit_test():
@@ -177,20 +178,21 @@ def calc_function():
 
 def button_num(question_num):
     global button_img
+    active_question = shuffler.shuffle_question_num(question_num, active_section)
     def clear_response():
-        df_responses['Response_section_' + str(active_section)][question_num] = 0
+        df_responses['Response_section_' + str(active_section)][active_question] = 0
         button_num(question_num)
     def mark_question():
-        df_responses['Marked_section_' + str(active_section)][question_num] = True
+        df_responses['Marked_section_' + str(active_section)][active_question] = True
         button_num(question_num)
     def unmark_question():
-        df_responses['Marked_section_' + str(active_section)][question_num] = False
+        df_responses['Marked_section_' + str(active_section)][active_question] = False
         button_num(question_num)
-    if (df_responses['Response_section_' + str(active_section)][question_num] == -1):
-        df_responses['Response_section_' + str(active_section)][question_num] = 0
+    if (df_responses['Response_section_' + str(active_section)][active_question] == -1):
+        df_responses['Response_section_' + str(active_section)][active_question] = 0
     reset_config()
-    button_img = ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = question_num, marked_for_review = df_responses['Marked_section_' + str(active_section)][question_num], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]]])))
-    button = tk.Button(navigation_frame_1, text = "", image = button_img, relief = 'sunken', bd = 4, command = partial(button_num, question_num), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][question_num]])    
+    button_img = ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = question_num, marked_for_review = df_responses['Marked_section_' + str(active_section)][active_question], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]]])))
+    button = tk.Button(navigation_frame_1, text = "", image = button_img, relief = 'sunken', bd = 4, command = partial(button_num, question_num), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][active_question]])    
     button.grid(column = ((question_num - 1)%3)+1, row = (question_num + 2)//3, padx = PADX, pady = PADY)
     if question_num == 1:
         previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = None, relief = 'raised', bd = 4, font = STATUS_FONT, state = 'disabled')
@@ -220,6 +222,7 @@ def button_num(question_num):
 
 def dynamic_initialization():
     global lmain,status
+    shuffler.initialze_shuffler(DF_CONFIGURATION, NUM_QUESTIONS)
     lmain = tk.Label(video_app_frame, anchor = 'ne')
     lmain.grid(row = 1, column = 1)
     status = tk.Label(video_app_frame, text = 'The status will show here!', font = STATUS_FONT, width = 27)

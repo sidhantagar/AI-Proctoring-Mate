@@ -1,3 +1,5 @@
+#IMPORT HERE..
+import shuffler
 import pandas as pd
 import tkinter as tk
 import tkinter.font as tkfont
@@ -5,6 +7,7 @@ import tkinter.font as tkfont
 #DEFINE CONSTANTS HERE..
 PADX = None
 PADY = None
+HEIGHT = None
 OPTION_FONT = None
 QUESTION_FONT = None
 CALCULATOR_FONT = None
@@ -17,19 +20,20 @@ multiple_choice_var = None
 responses = None
 select = None
 calc_textbox = None
+active_question = None
 calling_question = None
 df_questions = None
 active_section = None
 
 def single_choice_set():
-    responses['Response_section_' + str(active_section)][calling_question] = single_choice_var.get()
+    responses['Response_section_' + str(active_section)][active_question] = single_choice_var.get()
     #print("The option single_choice_set(): is "+ str(single_choice_var.get())) 
 
 def multiple_choice_set():
     res = 0
     for i in multiple_choice_var:
         res += i.get()
-    responses['Response_section_' + str(active_section)][calling_question] = res
+    responses['Response_section_' + str(active_section)][active_question] = res
 
 def multiple_choice_restore(val):   #Restores the option entered earlier 
     for i in range(len(multiple_choice_var)):
@@ -39,10 +43,9 @@ def multiple_choice_restore(val):   #Restores the option entered earlier
 def extend_text(text):
     return text+(' '*(100-len(text)))
 
-def view_question(question_frame, options_frame, this_question, df_responses, active_question):
-    global select, responses, calling_question 
+def view_question(question_frame, options_frame, this_question, df_responses):
+    global select, responses 
     responses = df_responses
-    calling_question= active_question
     question = tk.Label(question_frame, text = 'Q' + str(this_question['index'][0]+1) + '. ' + this_question['Question'][0], width = 50, padx = 10, pady = 10, anchor = 'nw', font = QUESTION_FONT)
     question.grid(row = 1, column = 1, sticky = 'W')
     if (this_question['Multicorrect'][0]== 'No'):
@@ -50,9 +53,9 @@ def view_question(question_frame, options_frame, this_question, df_responses, ac
         op1.grid(row = 1, column = 1, sticky = 'W')
         op2 = tk.Radiobutton(options_frame, text = extend_text('B. '+this_question['Option_2'][0]), variable=single_choice_var, value=2,command=single_choice_set, font = OPTION_FONT)
         op2.grid(row = 2, column = 1, sticky = 'W')
-        op3 = tk.Radiobutton(options_frame, text = extend_text('C. '+this_question['Option_3'][0]), variable=single_choice_var, value=3,command=single_choice_set, font = OPTION_FONT)
+        op3 = tk.Radiobutton(options_frame, text = extend_text('C. '+this_question['Option_3'][0]), variable=single_choice_var, value=4,command=single_choice_set, font = OPTION_FONT)
         op3.grid(row = 3, column = 1, sticky = 'W')
-        op4 = tk.Radiobutton(options_frame, text = extend_text('D. '+this_question['Option_4'][0]), variable=single_choice_var, value=4,command=single_choice_set, font = OPTION_FONT)
+        op4 = tk.Radiobutton(options_frame, text = extend_text('D. '+this_question['Option_4'][0]), variable=single_choice_var, value=8,command=single_choice_set, font = OPTION_FONT)
         op4.grid(row = 4, column = 1, sticky = 'W')
         single_choice_var.set(df_responses['Response_section_' + str(active_section)][active_question])
     elif (this_question['Multicorrect'][0] == 'Yes' ):
@@ -68,8 +71,11 @@ def view_question(question_frame, options_frame, this_question, df_responses, ac
 
 
 def button_num(question_frame, options_frame, df_responses, question_num):
-    this_question = df_questions[question_num-1 : question_num].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4', 'Multicorrect']]
-    view_question(question_frame, options_frame, this_question, df_responses, question_num)
+    global active_question, calling_question
+    calling_question = question_num
+    active_question = shuffler.shuffle_question_num(question_num, active_section)
+    this_question = df_questions[active_question-1 : active_question].reset_index()[['index', 'Question', 'Option_1', 'Option_2', 'Option_3', 'Option_4', 'Multicorrect']]
+    view_question(question_frame, options_frame, this_question, df_responses)
 
 
 def display_calculator(navigation_frame_1):

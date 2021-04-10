@@ -1,7 +1,9 @@
+#IMPORT HERE..
 import tkinter as tk
-import tkinter.font as tkfont
-from Verify_Details import verify_details
+import Verify_Details 
 import Instruction_Menu
+import tkinter.font as tkfont
+
 #DEFINE CONSTANTS HERE.. 
 CODE = None
 ROOT = None
@@ -9,7 +11,6 @@ WIDTH = None
 ERROR_FONT = None
 DETAILS_FONT1 = None
 DETIALS_FONT2 = None
-
 
 #INITIALISE HERE
 name_text = None
@@ -48,7 +49,7 @@ def display_components():
     details_submit = tk.Button(ROOT, text = "Submit", padx = 3, pady = 0, height = 1, relief = 'raised', bd = 4, font = DETIALS_FONT2, command = submit_details)
     details_submit.place(x = 170, y = 210)
 
-def submit_details(event = None):
+def submit_details(event = None): #Button Function
     global id_text
     name = name_text.get("1.0","end-1c")
     unique_id = id_text.get("1.0","end-1c")
@@ -56,7 +57,7 @@ def submit_details(event = None):
         print("Name : ", name)
     if __name__ == '__main__':
         print("Unique id : ", unique_id)
-    valid = verify_details(unique_id)
+    valid = Verify_Details.verify_details(unique_id)
     if valid:
         window_close()
         Instruction_Menu.instruction_menu(name, unique_id, CODE)
@@ -83,10 +84,10 @@ def define_constants(code):
     ROOT.protocol("WM_DELETE_WINDOW", window_close)
 
 
-def get_details(code = "3uibkub"):
+def get_details(code):
     define_constants(code)
     display_components()
     ROOT.mainloop()
 
 if __name__ == '__main__':
-    get_details()
+    get_details(code = "3uibkub")

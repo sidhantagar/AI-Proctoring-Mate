@@ -1,5 +1,7 @@
+#IMPORT HERE..
 import pandas as pd
 
+#DEFINE CONSTANTS HERE..
 DF_CONFIGURATION = None
 ID_FORMAT = None
 
@@ -15,13 +17,13 @@ def verify_details(unique_id):
     if len(unique_id) != len(ID_FORMAT):
         return False
     for i,j in zip(ID_FORMAT, unique_id):
-        if i == 'a':
+        if i == 'a' or i == 'A':
             if j.isalpha() != True:
                 return False
-        elif i == 'n':
+        elif i == 'n' or i == 'N':
             if j.isnumeric() != True:
                 return False
-        elif i == 'c':
+        elif i == 'c' or i == 'C':
             pass
         else:
             if i != j:

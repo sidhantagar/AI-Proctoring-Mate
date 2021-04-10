@@ -1,8 +1,10 @@
+#IMPORT HERE..
+import Main
 import pandas as pd
 import tkinter as tk
 import tkinter.font as tkfont
-import Main
 
+#DEFINE CONSTANTS HERE..
 ROOT = None
 DURATION = None
 NAME = None
@@ -13,6 +15,7 @@ INSTRUCTION_FONT = None
 SUBINSTRUCTION_FONT = None
 DF_CONFIGURATION = None
 
+#INITIALISE GLOBAL VARIABLES HERE..
 time_lapsed = None
 timer_label = None
 instructions_frame = None

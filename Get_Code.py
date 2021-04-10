@@ -1,15 +1,15 @@
 #IMPORT HERE..
+import Get_Details 
 import tkinter as tk
+import Fetch_Questions
 import tkinter.font as tkfont
-from Fetch_Questions import fetch_questions
-from Get_Details import get_details
 
 #DEFINE CONSTANTS HERE..
 ROOT = None
 CODE_FONT1 = None
 CODE_FONT2 = None
 
-#INITIALISE HERE
+#INITIALISE GLOBAL VARIABLES HERE..
 code_text = None
 
 def window_close():
@@ -27,13 +27,13 @@ def display_components():
     code_submit = tk.Button(ROOT, text = "Submit", padx = 3, pady = 0, height = 1, relief = 'raised', bd = 4, font = CODE_FONT2, command = submit_code)
     code_submit.place(x = 140, y = 120)
 
-def submit_code(event = None):
+def submit_code(event = None): #Button Function
     code = code_text.get("1.0","end-1c")
     if __name__ == "__main__":
         print(code)
-    fetch_questions(code)
+    Fetch_Questions.fetch_questions(code)
     window_close()
-    get_details(code)
+    Get_Details.get_details(code)
 
 def define_constants():
     global ROOT, CODE_FONT1, CODE_FONT2

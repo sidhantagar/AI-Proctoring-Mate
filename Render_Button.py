@@ -1,5 +1,8 @@
+#IMPORT HERE..
 import cv2 
 import numpy as np
+
+#DEFINE CONSTANTS HERE..
 FONT = None
 BOOKMARK_ICON = None
 

@@ -16,7 +16,7 @@ Typing.... &#11088;
   
 - [x] Prompts the candidate for the test code
 - [ ] Checks the validity of the code
-- [ ] Fetchs files of respective code
+- [x] Fetchs files of respective code
 
 </details>
 
@@ -24,7 +24,15 @@ Typing.... &#11088;
 <details>
 
 - [x] Prompts for the name and unique ID of the candidate
-- [ ] Verifies if the ID format matches the one provided by the Teacher
+- [x] Verifies if the ID format matches the one provided by the Teacher
+
+</details>
+
+#### Show Information Window:
+<details>
+
+- [ ] Shows the candidate the information about the test like number of sections and if calculator is allowed
+- [ ] Has a timer of 90 second which on lapse starts the test
 
 </details>
 
@@ -32,14 +40,17 @@ Typing.... &#11088;
 <details>
 
 - [x] Renders the Questions dynamically
-- [ ] The question can be single or multi correct
+- [x] The question can be single or multi correct
 - [x] Has buttons for each question for navigation directly to the question
 - [x] These buttons change color depending on question status
 - [x] Has next and previous buttons for navigation
-- [ ] Has the option to bookmark question which displays a bookmark over the question button
-- [ ] Has timer at the top to show remaining time which turns red in the last 20% time
-- [ ] Has a calculator if the teacher allows one
-- [ ] Closes automatically after one warning if tab switch is detected.
+- [x] Has 3 different sections with the ability to give different marking schemes for each section
+- [x] Buttons at the top of UI to change section as well as the through next button of lest question
+- [x] Has the option to bookmark question which displays a bookmark over the question button
+- [x] Has timer at the top to show remaining time which turns red in the last 20% time
+- [x] Has a calculator if the teacher allows one
+- [ ] Has the functionality to shuffle order of questions and options if desired
+- [ ] Closes automatically after one warning if application switch is detected after a warning
 - [x] Records audio and video of the candidate
 - [x] Displays a preview of the video being recorded 
 - [ ] The video is processed by AI algorithms using parallel computation for speedup
@@ -48,7 +59,6 @@ Typing.... &#11088;
 - [ ] Removes unnecessary files
 
 </details>
-
 
 ## Test Mate Progress:
 
@@ -67,14 +77,15 @@ Typing.... &#11088;
 
 #### 2. Authentication:
 
-- <code>[-]</code> &nbsp; Registration 
-- <code>[-]</code> &nbsp; Login
-- <code>[-]</code> &nbsp; Email Activation
-- <code>[-]</code> &nbsp; Reset Password via Mail
-- <code>[-]</code> &nbsp; Logout
+- <code>&#x2713;</code> &nbsp; Registration 
+- <code>&#x2713;</code> &nbsp; Login
+- <code>&#x2713;</code> &nbsp; Email Activation
+- <code>&#x2713;</code> &nbsp; Reset Password via Mail
+- <code>&#x2713;</code> &nbsp; Logout
 
 #### 3. Dashboard:
 
+- <code>[-]</code> &nbsp; Create Dashboard
 - <code>[-]</code> &nbsp; Create Quiz
   
   <ul>

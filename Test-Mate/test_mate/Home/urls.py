@@ -15,5 +15,6 @@ urlpatterns = [
     path('dashboard/Contact/students/',login_required(views.StudentContact),name='student_contact'),
     path('dashboard/responses/',login_required(views.ResponseView),name='response_page_1'),
     path('dashboard/responses/1/<slug:code>/',login_required(views.ResponseDetailsView),name='response_page_2'),
+    path('download/video/<str:filename>/',login_required(views.DownloadVideoFiles),name='download_video_files'),
 
 ]

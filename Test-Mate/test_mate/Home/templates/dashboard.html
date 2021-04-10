@@ -28,7 +28,7 @@
         <a class="active_link" href="{% url 'dashboard_view' %}">Admin</a>
         <!-- <a href="{% url 'create_config_page' %}">Create Quiz</a> -->
         <a href="{% url 'test_created' %}">Created Quizzes</a>
-        <a href="#">Responses</a>
+        <a href="{% url 'response_page_1' %}">Responses</a>
       </div>
       <div class="navbar__right">
         <!-- <a href="#">
@@ -91,7 +91,7 @@
               </div>
             </div>
           </a>
-          <a href="#" style="text-decoration:none;">
+          <a href="{% url 'response_page_1' %}" style="text-decoration:none;">
             <div class="card">
 
               <!-- <i class="fa fa-video-camera fa-2x text-yellow" aria-hidden="true" style="margin-bottom:10px;"></i> -->

@@ -45,7 +45,6 @@ cap = None
 aud = None
 vid_frame_width = None
 vid_frame_height = None
-option_variable = None
 video_app_frame = None
 question_frame = None
 options_frame = None
@@ -78,8 +77,11 @@ def define_constants(name, unique_id, code):
     SUSPICIOUS_THRESHOLD = 0.5
     STATUS_FONT = tkfont.Font(family = "Comic Sans MS", size = 15)
     BUTTON_FONT = tkfont.Font(family = "Comic Sans MS", size = 13)
-    CONTRAST_COLOURS = {-1 : 'white', 0 : 'white', 1 : 'white', 2 : 'white', 3 : 'white', 4 : 'white'}
-    DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red', 1 : 'green', 2 : 'green', 3 : 'green', 4 : 'green'}
+    CONTRAST_COLOURS = {-1 : 'white', 0 : 'white'}
+    DICTIONARY_COLOURS = {-1 : 'purple', 0 : 'red'}
+    for i in range(1,16):
+        CONTRAST_COLOURS[i] = 'white'
+        DICTIONARY_COLOURS[i] = 'green'
     CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(cv2.imread(r'UI_Images\calculator.jpg'), (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
     DF_CONFIGURATION = pd.read_csv('./Question/Config.csv').set_index("Name")[['Value']]
     DURATION = (int(DF_CONFIGURATION.at['Duration', 'Value']))*60
@@ -89,7 +91,7 @@ def define_constants(name, unique_id, code):
     assert NUM_QUESTIONS >1
 
 def define_initializations():
-    global av_index, recording, cap, aud, vid_frame_width, vid_frame_height, option_variable, video_app_frame, question_frame, options_frame, navigation_frame_1, df_responses, calculator, calculator_status, time_lapsed
+    global av_index, recording, cap, aud, vid_frame_width, vid_frame_height, video_app_frame, question_frame, options_frame, navigation_frame_1, df_responses, calculator, calculator_status, time_lapsed
     av_index = 1
     recording = 0 
     cap = cv2.VideoCapture(0)
@@ -104,23 +106,34 @@ def define_initializations():
     options_frame.place(x = 15, y = 230)
     navigation_frame_1 = tk.Frame(ROOT)
     navigation_frame_1.place(x = 1070, y = 350)
-    option_variable = tk.IntVar()
     df_responses = pd.DataFrame()
     for i in range(1, (NUM_SECTIONS+1)):
         df_responses["Response_section_" + str(i)] = [-1]*(NUM_QUESTIONS+1)
         df_responses["Marked_section_" + str(i)] = [False]*(NUM_QUESTIONS+1)
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
+    calculator_status = "closed"
+    time_lapsed = 13*60+20
+
+def reset_section_config():
     section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'raised', bd = 4, font = STATUS_FONT)
     section_1.place(x = 15, y = 15)
     section_2 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 2', command = lambda : load_section(2), relief = 'raised', bd = 4, font = STATUS_FONT, state = {1 : "disabled", 2 : "normal", 3 : "normal"}[NUM_SECTIONS])
     section_2.place(x = 460, y = 15)
     section_3 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 3', command = lambda : load_section(3), relief = 'raised', bd = 4, font = STATUS_FONT, state = {1 : "disabled", 2 : "disabled", 3 : "normal"}[NUM_SECTIONS])
     section_3.place(x = 875, y = 15)
-    calculator_status = "closed"
-    time_lapsed = 13*60+20
 
 def load_section(num_section):
+    reset_section_config()
+    if num_section == 1:
+        section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'sunken', bd = 4, font = STATUS_FONT)
+        section_1.place(x = 15, y = 15)
+    if num_section == 2:
+        section_2 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 2', command = lambda : load_section(2), relief = 'sunken', bd = 4, font = STATUS_FONT, state = {1 : "disabled", 2 : "normal", 3 : "normal"}[NUM_SECTIONS])
+        section_2.place(x = 460, y = 15)
+    if num_section == 3:
+        section_3 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 3', command = lambda : load_section(3), relief = 'sunken', bd = 4, font = STATUS_FONT, state = {1 : "disabled", 2 : "disabled", 3 : "normal"}[NUM_SECTIONS])
+        section_3.place(x = 875, y = 15)
     global active_section
     active_section = num_section
     UI_Comp_Functions.select_question_set(num_section)
@@ -191,7 +204,7 @@ def button_num(question_num):
     clear_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH + 3, height = HEIGHT, text = 'Clear Response', command = clear_response, relief = 'raised', bd = 4, font = STATUS_FONT)
     clear_button.place(x = 210, y = 700)
 
-    UI_Comp_Functions.button_num(question_frame, options_frame, option_variable, df_responses, question_num)
+    UI_Comp_Functions.button_num(question_frame, options_frame, df_responses, question_num)
     if __name__ == '__main__':
         print(question_num)
 
@@ -260,7 +273,6 @@ def main(name, unique_id, code):
     dynamic_initialization()
     UI_Comp_Functions.initialize_ui_components()
     load_section(1)
-    reset_config()
     show_timer()
     #base_function() #Commented temporarily................................
     ROOT.mainloop()

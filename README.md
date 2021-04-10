@@ -10,34 +10,36 @@ Typing.... &#11088;
 </code>
 
 ### UI Components:
+<details>
+  <summary>:zap: <strong>Proposed Features </strong> </summary>
 
 #### Get Code Window:
-<details>
+
   
 - [x] Prompts the candidate for the test code
 - [ ] Checks the validity of the code
 - [x] Fetchs files of respective code
 
-</details>
+
 
 #### Get Details Window:
-<details>
+
 
 - [x] Prompts for the name and unique ID of the candidate
 - [x] Verifies if the ID format matches the one provided by the Teacher
 
-</details>
+
 
 #### Show Information Window:
-<details>
 
-- [ ] Shows the candidate the information about the test like number of sections and if calculator is allowed
-- [ ] Has a timer of 90 second which on lapse starts the test
 
-</details>
+- [x] Shows the candidate the information about the test like number of sections and if calculator is allowed
+- [x] Has a timer of 90 second which on lapse starts the test
+
+
 
 #### Main Exam Window:
-<details>
+
 
 - [x] Renders the Questions dynamically
 - [x] The question can be single or multi correct
@@ -50,13 +52,15 @@ Typing.... &#11088;
 - [x] Has timer at the top to show remaining time which turns red in the last 20% time
 - [x] Has a calculator if the teacher allows one
 - [ ] Has the functionality to shuffle order of questions and options if desired
-- [ ] Closes automatically after one warning if application switch is detected after a warning
+- [x] Closes automatically after one warning if application switch is detected after a warning
 - [x] Records audio and video of the candidate
 - [x] Displays a preview of the video being recorded 
 - [ ] The video is processed by AI algorithms using parallel computation for speedup
 - [ ] Generates a ultrasound pulse and records its amplitude at regular intervals
 - [ ] Uploads the response file as well as video files of the candidate
 - [ ] Removes unnecessary files
+
+
 
 </details>
 
@@ -85,26 +89,26 @@ Typing.... &#11088;
 
 #### 3. Dashboard:
 
-- <code>[-]</code> &nbsp; Create Dashboard
-- <code>[-]</code> &nbsp; Create Quiz
+- <code>&#x2713;</code> &nbsp; Create Dashboard
+- <code>&#x2713;</code> &nbsp; Create Quiz
   
   <ul>
-   <li><code>[-]</code> &nbsp; Configurations Page</li> 
-   <li><code>[-]</code> &nbsp; Dynamic Section's Page</li>
-   <li><code>[-]</code> &nbsp; Uniques Code Display Page</li> 
+   <li><code>&#x2713;</code> &nbsp; Configurations Page</li> 
+   <li><code>&#x2713;</code> &nbsp; Dynamic Section's Page</li>
+   <li><code>&#x2713;</code> &nbsp; Uniques Code Display Page</li> 
   </ul>
   
 
-- <code>[-]</code> &nbsp; Stats Cards
-- <code>[-]</code> &nbsp; Stats Plot
-- <code>[-]</code> &nbsp; Activity Timeline
-- <code>[-]</code> &nbsp; Quizzes Created
-- <code>[-]</code> &nbsp; Responses Received
+- <code>&#x2713;</code> &nbsp; Stats Cards
+- <code>&#x2713;</code> &nbsp; Stats Plot
+- <code>&#x2713;</code> &nbsp; Activity Timeline
+- <code>&#x2713;</code> &nbsp; Quizzes Created
+- <code>&#x2713;</code> &nbsp; Responses Received
 
 #### 4. Feedback & Contact Us:
 
-- <code>[-]</code> &nbsp; Reach Us Form
-- <code>[-]</code> &nbsp; Feedback Form
+- <code>&#x2713;</code> &nbsp; Reach Us Form
+- <code>&#x2713;</code> &nbsp; Feedback Form
 
 </details>
 

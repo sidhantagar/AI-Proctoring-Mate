@@ -59,11 +59,14 @@ timer_label = None
 button_img = None
 buttons = None
 active_section = None
+warning_1 = None
+warning_time = None
+warning_label = None
 
 def define_constants(name, unique_id, code):
     global Q_WIDTH, N_WIDTH, HEIGHT, PADX, PADY, ROOT, SUSPICIOUS_THRESHOLD, STATUS_FONT, BUTTON_FONT, CONTRAST_COLOURS, DICTIONARY_COLOURS, CALCULATOR_ICON, NAME, UNIQUE_ID, DF_CONFIGURATION, DURATION, CODE, NUM_QUESTIONS, NUM_SECTIONS, NAME_TO_RGB
     CODE = code
-    NAME = name
+    NAME = "-".join(name.split(" "))
     UNIQUE_ID = unique_id
     Q_WIDTH = 8
     N_WIDTH = 11
@@ -85,13 +88,15 @@ def define_constants(name, unique_id, code):
     CALCULATOR_ICON = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(cv2.resize(cv2.imread(r'UI_Images\calculator.jpg'), (0, 0), fx = 0.3, fy = 0.3), cv2.COLOR_BGR2RGBA)))
     DF_CONFIGURATION = pd.read_csv('./Question/Config.csv').set_index("Name")[['Value']]
     DURATION = (int(DF_CONFIGURATION.at['Duration', 'Value']))*60
-    NUM_QUESTIONS = (int(DF_CONFIGURATION.at['Num_questions', 'Value']))
     NUM_SECTIONS = (int(DF_CONFIGURATION.at['Num_sections', 'Value']))
+    NUM_QUESTIONS = []
+    for i in range(1, NUM_SECTIONS+1):
+        NUM_QUESTIONS.append(int(DF_CONFIGURATION.at['Num_questions_'+str(i), 'Value']))
+        assert NUM_QUESTIONS[i-1]>1
     NAME_TO_RGB = {"purple" : (128, 0, 128), "white" : (255, 255, 255), "green" : (0, 128, 0), "red" : (255, 0 , 0), "black" : (0, 0, 0)}
-    assert NUM_QUESTIONS >1
 
 def define_initializations():
-    global av_index, recording, cap, aud, vid_frame_width, vid_frame_height, video_app_frame, question_frame, options_frame, navigation_frame_1, df_responses, calculator, calculator_status, time_lapsed
+    global av_index, recording, cap, aud, vid_frame_width, vid_frame_height, video_app_frame, question_frame, options_frame, navigation_frame_1, df_responses, calculator, calculator_status, time_lapsed, warning_1
     av_index = 1
     recording = 0 
     cap = cv2.VideoCapture(0)
@@ -108,12 +113,13 @@ def define_initializations():
     navigation_frame_1.place(x = 1070, y = 350)
     df_responses = pd.DataFrame()
     for i in range(1, (NUM_SECTIONS+1)):
-        df_responses["Response_section_" + str(i)] = [-1]*(NUM_QUESTIONS+1)
-        df_responses["Marked_section_" + str(i)] = [False]*(NUM_QUESTIONS+1)
+        df_responses["Response_section_" + str(i)] = [-1]*(max(NUM_QUESTIONS)+1)
+        df_responses["Marked_section_" + str(i)] = [False]*(max(NUM_QUESTIONS)+1)
     calculator = tk.Button(ROOT, text = "", image = CALCULATOR_ICON, relief = 'raised', bd = 4, command = calc_function, state = DF_CONFIGURATION.at['Calculator','Value'] )
     calculator.place(x = 1347, y = 1)
     calculator_status = "closed"
     time_lapsed = 13*60+20
+    warning_1 = 2
 
 def reset_section_config():
     section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'raised', bd = 4, font = STATUS_FONT)
@@ -124,6 +130,7 @@ def reset_section_config():
     section_3.place(x = 875, y = 15)
 
 def load_section(num_section):
+    reset_navigation_frame()
     reset_section_config()
     if num_section == 1:
         section_1 = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Section 1', command = lambda : load_section(1), relief = 'sunken', bd = 4, font = STATUS_FONT)
@@ -145,7 +152,7 @@ def reset_config():
         calculator_status = "closed"
         reset_navigation_frame()
     button_icons = []
-    for i in range(1, NUM_QUESTIONS+1):
+    for i in range(1, NUM_QUESTIONS[active_section-1]+1):
         button_icons.append(ImageTk.PhotoImage(image=Image.fromarray(Render_Button.render_button(question_num = i, marked_for_review = df_responses['Marked_section_' + str(active_section)][i], bg_color = NAME_TO_RGB[DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]]], font_color = NAME_TO_RGB[CONTRAST_COLOURS[df_responses['Response_section_' + str(active_section)][i]]]))))
         button = tk.Button(navigation_frame_1, text = "", image = button_icons[i-1], relief = 'raised', bd = 4, command = partial(button_num, i), bg = DICTIONARY_COLOURS[df_responses['Response_section_' + str(active_section)][i]])
         button.grid(column = ((i-1)%3)+1, row = (i + 2)//3, padx = PADX, pady = PADY)
@@ -191,8 +198,11 @@ def button_num(question_num):
     else:
         previous_button = tk.Button(ROOT, padx = PADX, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Previous', command = partial(button_num, question_num-1), relief = 'raised', bd = 4, font = STATUS_FONT)
         previous_button.place(x = 15, y = 700)
-    if question_num == NUM_QUESTIONS:
+    if question_num == NUM_QUESTIONS[active_section-1] and active_section == NUM_SECTIONS:
         next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Submit Test', command = submit_test, relief = 'raised', bd = 4, font = STATUS_FONT)
+        next_button.place(x = 900, y = 700)
+    elif question_num == NUM_QUESTIONS[active_section-1]:
+        next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next Section', command = lambda : load_section(active_section+1), relief = 'raised', bd = 4, font = STATUS_FONT)
         next_button.place(x = 900, y = 700)
     else:
         next_button = tk.Button(ROOT, padx = PADX+3, pady = 0, width = N_WIDTH, height = HEIGHT, text = 'Next', command = partial(button_num, question_num+1), relief = 'raised', bd = 4, font = STATUS_FONT)
@@ -242,27 +252,48 @@ def base_function():
     lmain.after(1, base_function)   
 
 def show_timer():
-    global time_lapsed, timer_label
+    global time_lapsed, timer_label, warning_time, warning_label,warning_1
     if time_lapsed == DURATION:
         submit_test()
         return
     if __name__ == '__main__':
         print(time_lapsed)
-    time_lapsed = time_lapsed + 1
+    if ROOT.focus_get() == None:
+        if __name__ == '__main__':
+            print("Trying")
+        if warning_1 == 0:
+            submit_test()
+            return
+        if warning_1 != 2:
+            warning_label = UI_Comp_Functions.display_warning(1, ROOT)
+            warning_time = time_lapsed
+        warning_1 -=1
+    
+    if warning_time != None and time_lapsed == warning_time + 8:
+        warning_label.destroy()
+        warning_time = None
+
+    time_lapsed = time_lapsed + .5
     if time_lapsed >= 0.8*DURATION:
         color = "red"
+        timer_label = tk.Label(ROOT, text = "Time Remaining: "+str("%0*d" % (2, ((DURATION-time_lapsed)//60)))+":"+ str("%0*d" % (2, ((DURATION-time_lapsed)%60))), fg = color, width = 18 , font = STATUS_FONT)
+        if DURATION - time_lapsed < 15:
+            if time_lapsed % 1 == 0:
+                timer_label = tk.Label(ROOT, text = "Time Remaining: "+str("%0*d" % (2, ((DURATION-time_lapsed)//60)))+":"+ str("%0*d" % (2, ((DURATION-time_lapsed)%60))), fg = color, width = 18 , font = STATUS_FONT)    
+            else:
+                timer_label = tk.Label(ROOT, text = "", width = 18, font = STATUS_FONT)
     else:
         color = "black"
-    timer_label = tk.Label(ROOT, text = "Time Remaining: "+str("%0*d" % (2, ((DURATION-time_lapsed)//60)))+":"+ str("%0*d" % (2, ((DURATION-time_lapsed)%60))), fg = color, width = 18 , font = STATUS_FONT)
+        timer_label = tk.Label(ROOT, text = "Time Remaining: "+str("%0*d" % (2, ((DURATION-time_lapsed)//60)))+":"+ str("%0*d" % (2, ((DURATION-time_lapsed)%60))), fg = color, width = 18 , font = STATUS_FONT)
     timer_label.place(x = 1060, y = 10)
-    timer_label.after(1000, show_timer)
+    timer_label.after(500, show_timer)
 
 def window_close():
     if recording == 1:
-        AV_Synchronization.stop_AVrecording(filename = 'video_'+ str(av_index))
+        AV_Synchronization.stop_AVrecording(filename = CODE + "_" + NAME + '_'+ UNIQUE_ID + "_video"+str(av_index))
         AV_Synchronization.file_manager()
     cap.release()
-    file_name = NAME + "_"+ UNIQUE_ID +"_responses.csv"
+    file_name = CODE + "_" + NAME + "_"+ UNIQUE_ID +"_responses.csv"
     df_responses[1:].to_csv(file_name, index = False)
     ROOT.destroy()
     #Upload_Submission.upload_submission(fileName = file_name, testCode = CODE)          #Commented temporarily................................

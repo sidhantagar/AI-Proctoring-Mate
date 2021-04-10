@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkfont
 from Verify_Details import verify_details
-from Main import main
+import Instruction_Menu
 #DEFINE CONSTANTS HERE.. 
 CODE = None
 ROOT = None
@@ -59,7 +59,7 @@ def submit_details(event = None):
     valid = verify_details(unique_id)
     if valid:
         window_close()
-        main(name, unique_id, CODE)
+        Instruction_Menu.instruction_menu(name, unique_id, CODE)
     else:
         error_label = tk.Label(ROOT, text = "The (Unique ID/Reg No.) you have entered is not valid!!",fg = 'red' , padx = 10, font = ERROR_FONT)
         error_label.place(x = 0, y = 190)

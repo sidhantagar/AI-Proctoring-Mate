@@ -81,16 +81,24 @@
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ x.studentName }}</td>
           <td>{{ x.studentId }}</td>
-          <th>{{ x.section1_marks }}</th>
-          <td>{{ x.section2_marks }}</td>
-          <td>{{ x.section3_marks }}</td>
-          <td>{{ x.total_marks }}</td>
+          <th>
+            {{ x.section1_marks }}/{{ x.section1_total }}
+          </th>
           <td>
-            <!-- <a href="#" style="text-decoration:none;" target="_blank"> -->
+            {{ x.section2_marks }}/{{ x.section2_total }}
+          </td>
+          <td>
+            {{ x.section3_marks }}/{{ x.section3_total }}
+          </td>
+          <td>
+            {{ x.total_marks }}/{{ x.overall_total }}
+          </td>
+          <td>
+            <a href="{% url 'download_video_files' filename=x.Response.VideoFile %}" style="text-decoration:none;">
               <button type="button" style="background-color:#fed049;" class="btn btn-block" name="button">
                   <b>Video File</b>
               </button>
-            <!-- </a> -->
+            </a>
           </td>
         </tr>
         {% endfor %}

@@ -479,6 +479,8 @@ def ViewQuestions(request,code = None):
 
 
 
+
+
 # Download files view will make the dowloader to ask for if, the scrapper wants to download the .zip file.
 # For this to work, all the validations must suffice.
 
@@ -496,6 +498,27 @@ def DownloadFiles(request):
         return response
 
 
+
+
+
+################################################################################
+
+
+
+
+
+# For downloading Video Files of indivisual student.
+
+def DownloadVideoFiles(request,filename=None):
+
+    file_path = settings.MEDIA_ROOT+'/'+filename
+    download_filename = filename
+
+    with open(file_path,'rb') as file:
+
+        response = HttpResponse(file.read(),content_type='application/zip')
+        response['Content-Disposition'] = "attachment; filename={}".format(download_filename)
+        return response
 
 
 
@@ -711,10 +734,10 @@ def ResponseDetailsView(request,code=None):
             student.section2_total = None
         if student_metrics[2] != "no":
             student.section3_marks = student_metrics[2]
-            student.section2_total = student_metrics[9]
+            student.section3_total = student_metrics[9]
         else:
             student.section3_marks = None
-            student.section2_total = None
+            student.section3_total = None
 
         student.total_marks = student_metrics[3]
         student.overall_total = student_metrics[10]

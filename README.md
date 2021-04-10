@@ -37,8 +37,8 @@ Typing.... &#11088;
 - [x] These buttons change color depending on question status
 - [x] Has next and previous buttons for navigation
 - [ ] Has the option to bookmark question which displays a bookmark over the question button
-- [ ] Has timer at the top to show remaining time which turns red in the last 20% time
-- [ ] Has a calculator if the teacher allows one
+- [x] Has timer at the top to show remaining time which turns red in the last 20% time
+- [x] Has a calculator if the teacher allows one
 - [ ] Closes automatically after one warning if tab switch is detected.
 - [x] Records audio and video of the candidate
 - [x] Displays a preview of the video being recorded 

@@ -24,7 +24,7 @@ def define_constants(name, unique_id, code):
     global ROOT, DURATION, NAME, UNIQUE_ID, CODE, DF_CONFIGURATION, INSTRUCTION_FONT, HEADING_FONT, SUBINSTRUCTION_FONT
     ROOT = tk.Tk()
     ROOT.minsize(1000, 800)
-    ROOT['bg'] = "gray13"      #Termorarily changed to black theme :P 
+    #ROOT['bg'] = "gray13"      #Termorarily changed to black theme :P 
     ROOT.protocol("WM_DELETE_WINDOW", window_close)
     DURATION = 90
     NAME = name

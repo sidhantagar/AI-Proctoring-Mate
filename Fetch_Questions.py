@@ -14,9 +14,9 @@ def fetch_questions(code):
     chrome_options.add_experimental_option('prefs', prefs)
     driver = webdriver.Chrome(executable_path= PATH +"\\chromedriver_win32\\chromedriver.exe", chrome_options= chrome_options)
     driver.implicitly_wait(20)
-    driver.get(URL)
     if __name__ != "__main__":
         driver.minimize_window()
+    driver.get(URL)
     uploader = driver.find_element_by_id("test_code")
     uploader.send_keys(code)
     driver.find_element_by_id("submit").click()
@@ -37,4 +37,4 @@ def fetch_questions(code):
 
 if __name__ == '__main__':
     print(PATH)
-    print(fetch_questions(code = 'FF5G9Z22'))
+    print(fetch_questions(code = 'Kee'))

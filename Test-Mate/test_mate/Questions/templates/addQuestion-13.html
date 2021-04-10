@@ -1,0 +1,124 @@
+{% extends 'addQuestion-12.html' %}
+{% load static %}
+
+{% block question13 %}
+<div class="card" style="border-left-width: 2px;border-right-width: 2px;padding-right: 24px;">
+  <div class="custom-control" style="margin-bottom: 16px;margin-top:16px;">
+    <div class="row">
+      <div class="col-sm">
+        <div class="card-header" style="margin-bottom: 5px;border-bottom-width: 0px;background-color:#fbeeac;border-radius:5px 5px;">
+          <label for="comment" style="color:#f0a500;">
+            <h5>Question 13</h5><small class="text-muted"><b>(Positives : {{ pos }}, Negatives : {{ neg }})</b></small>
+          </label>
+        </div>
+        <textarea class="form-control" rows="3" id="comment" name="q13" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-control">
+    <div class="row">
+      <div class="col-sm">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color:#d3e0ea;color:#00587a;"><b>Option A</b></span>
+          </div>
+          <input type="text" class="form-control" name="opA_13" required>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color:#d3e0ea;color:#00587a;"><b>Option B</b></span>
+          </div>
+          <input type="text" class="form-control" name="opB_13" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-control">
+    <div class="row">
+      <div class="col-sm">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color:#d3e0ea;color:#00587a;"><b>Option C</b></span>
+          </div>
+          <input type="text" class="form-control" name="opC_13" required>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="background-color:#d3e0ea;color:#00587a;"><b>Option D</b></span>
+          </div>
+          <input type="text" class="form-control" name="opD_13" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-control" style="padding-top: 16px;padding-bottom: 16px;">
+    <div class="row">
+      <legend class="col-form-label col-sm-6 pt-0"><b>Pick if this question has more than one correct option?</b></legend>
+      <div class="col-sm">
+        <div class="custom-control custom-checkbox" style="margin-top:10px;">
+          <input class="custom-control-input" type="checkbox" name="13y" id="_13y">
+          <label class="custom-control-label" for="_13y">
+            <b>Yes</b>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="custom-control" style="padding-top: 16px;padding-bottom: 16px;">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0"><b>Correct Answer:</b></legend>
+      <div class="col-sm">
+
+        <div class="custom-control custom-checkbox" style="margin-top:10px;">
+          <input class="custom-control-input" type="checkbox" name="q13_a" id="gridCheck1_13">
+          <label class="custom-control-label" for="gridCheck1_13">
+            <b>A</b>
+          </label>
+        </div>
+
+      </div>
+      <div class="col-sm">
+
+        <div class="custom-control custom-checkbox" style="margin-top:10px;">
+          <input class="custom-control-input" type="checkbox" name="q13_b" id="gridCheck2_13">
+          <label class="custom-control-label" for="gridCheck2_13">
+            <b>B</b>
+          </label>
+        </div>
+
+
+      </div>
+      <div class="col-sm">
+
+        <div class="custom-control custom-checkbox" style="margin-top:10px;">
+          <input class="custom-control-input" type="checkbox" name="q13_c" id="gridCheck3_13">
+          <label class="custom-control-label" for="gridCheck3_13">
+            <b>C</b>
+          </label>
+        </div>
+
+      </div>
+      <div class="col-sm">
+
+        <div class="custom-control custom-checkbox" style="margin-top:10px;">
+          <input class="custom-control-input" type="checkbox" name="q13_d" id="gridCheck4_13">
+          <label class="custom-control-label" for="gridCheck4_13">
+            <b>D</b>
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<hr style="margin-bottom: 32px;">
+{% endblock %}

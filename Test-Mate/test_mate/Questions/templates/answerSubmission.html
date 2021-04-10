@@ -1,0 +1,58 @@
+{% extends 'second_base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Submit Test</title>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header" style="background-color:#007580;color:#ADEFD1FF;">
+    <h2>File Submission</h2>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title" style="font-weight:bold;font-family: 'Montserrat', sans-serif;">Submit Your Answer File Here &darr;</h5><br>
+    <!-- <p class="card-text">Submit your answer file in the files input below!! </p>-->
+    <form id="ansForm" action="#" name="ansForm" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="" style="color:#ce1212;font-weight:bold;font-family: 'Montserrat', sans-serif;">
+        {% if config_error %}
+          <div class="text-left">
+            <p>Submission's Test config has not been created by the Teacher!!</p>
+            <p>False Attempt</p>
+          </div>
+        {% endif %}
+        {% if video_error %}
+          <div class="text-left">
+            <p>Video Files already submitted for this Student!!</p>
+            <p>False Attempt</p>
+          </div>
+        {% endif %}
+        {% if response_error %}
+          <div class="text-left">
+            <p>Response File already Submitted For this Student!!</p>
+            <p>False Attempt</p>
+          </div>
+        {% endif %}
+        {% if timeup_error %}
+          <div class="text-left">
+            <p>Time has already passed!!</p>
+            <p>No resposnses for this test will be accepted</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="form-control" id="response_file" name="answer_file" placeholder="Choose File" style="background-color:#fbeeac;color:#f0a500;" required />
+          <label class="form-label" for="customFile"></label>
+        </div>
+      </div>
+      <button type="submit" id="submitButton" class="btn btn-block btn-primary ">
+        <span style="font-weight:bold;font-family: 'Montserrat', sans-serif;" >Submit</span>
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

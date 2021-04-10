@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test Submitted</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
+  <!-- Font Icon -->
+  <link rel="stylesheet" href="{% static 'SecondaryPages/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+  <!-- Main css -->
+  <link rel="stylesheet" href="{% static 'SecondaryPages/css/style.css' %}">
+
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- Internal CSS -->
+  <style media="screen">
+    .popup {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* The actual popup */
+    .popup .popuptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -80px;
+    }
+
+    /* Popup arrow */
+    .popup .popuptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+      visibility: visible;
+      -webkit-animation: fadeIn 1s;
+      animation: fadeIn 1s;
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/e36824a4be.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Card - 1 -->
+
+  <section class="signup" style="margin-bottom: 20px;margin-top: 80px;">
+    <div class="container" style="height: 500px;">
+
+      <div class="signup-content" style="padding-bottom: 0px;padding-top:20px;">
+        <div class="signup-form" style="margin-right: 75px;margin-left: 80px;">
+
+          <h2 style="padding-top:75px;font-family: 'Montserrat', sans-serif;font-weight:bold;margin-top:90px;">Bravo!!</h3>
+          <div style="margin-top:30px;">
+            <h5 style="font-family: 'Montserrat', sans-serif;font-weight:bold;">Your Response has been successfully Submitted!!</h5><br>
+          </div>
+
+        </div>
+        <div class="signup-image" style="margin-left: 0px;margin-top: 0px;">
+          <figure><img src="{% static 'clip-Board Image/clipBoard.jpg' %}" alt="sing up image"></figure>
+          <!-- <a href="#" class="signup-image-link">I am already member</a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS -->
+  <script src="{% static 'SecondaryPages/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'SecondaryPages/js/main.js' %}"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

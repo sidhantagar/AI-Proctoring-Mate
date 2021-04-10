@@ -1,0 +1,252 @@
+{% extends 'createQuestion-base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Config Page</title>
+{% endblock %}
+
+{% block content %}
+<form action="" name="configForm" method="POST">
+  {% csrf_token %}
+
+  <div class="container" style="margin-top: 10px;margin-bottom: 15px;padding-right: 25px;">
+    <div class="row">
+      <div class="col-6" style="">
+        <div class="input-group mb-3" style="padding-right: 10px;">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:#9ddfd3;"><b>Quiz Name</b></span>
+          </div>
+          <input type="text" class="form-control" name="quiz_name" placeholder="" aria-label="Username" aria-describedby="basic-addon2" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <div class="input-group">
+          <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2" style="background-color:#29bb89;"><b>Quiz Description</b></span>
+          </div>
+          <textarea class="form-control" name="quiz_desc" id="exampleFormControlTextarea1" rows="2" required></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 10px;margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-sm" style="">
+        <div class="input-group mb-3" style="padding-right: 10px;">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3" style="background-color:#e6dd3b;"><b>ID_Format</b></span>
+          </div>
+          <input type="text" class="form-control" name="IDformat" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+        </div>
+        <small id="emailHelp" class="form-text text-muted" style="margin-right: 12px;margin-left: 20px;"><strong>Format :
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                A: alphabet (A-Z)<br>
+                N: numeric(0-9)<br>
+                C: character(any)<br>
+                any other character is matched 1-1
+              </li>
+              <li class="list-group-item">eg : For <span style="font-size:16px;color:green;">AC201N</span> ~ [alphabet][character][201][Number(0-9)] ; &nbsp; <span style="font-size:16px;color:green">B22019</span> &nbsp; will be considered as a valid
+                ID</li>
+          </strong>
+          </ul>
+        </small>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <section style="margin-left:0px;padding-right:25px;padding-left:25px;">
+    <div class="text-left">
+      <p class="h5" style="margin-bottom:20px;"> When are you planning to conduct the Quiz?</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" style="background-color:#2f5d62;color:#ffb037;"><b>Date</b></span>
+              <input class="form-control" name="date" type="date" value="2021-04-02" id="example-date-input" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 text-right">
+          <div class="form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" style="background-color:#2f5d62;color:#ffb037;"><b>Time</b></span>
+              <input class="form-control" name="time" type="time" value="13:45:00" id="example-time-input" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+  <div class="container" style="margin-top: 10px;margin-bottom: 15px;">
+    <!-- row-1 -->
+    <div class="row" style="margin-bottom: 30px;margin-top: 30px;">
+      <div class="col">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" name="calculator" class="custom-control-input" id="customCheck">
+          <label class="custom-control-label" for="customCheck"> Allow Calculator</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" name="keepQuestion" class="custom-control-input" id="exampleCheck2">
+          <label class="custom-control-label" for="exampleCheck2"> Allow Keeping Question</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container" style="">
+    <div class="row" style="margin-right: 0px;">
+      <div class="col-sm" style="margin-top: 15px;">
+        <label for="quantity"><b>Number Of Sections : </b></label>
+      </div>
+      <div class="col-sm" style="margin-top: 15px;">
+        <div class="row">
+          <div class="col-sm">
+            <a class="btn btn-outline-info btn-block" role="button" value="1" name="btn1" onclick="addField(this)">1</a>
+          </div>
+          <div class="col-sm">
+            <a class="btn btn-outline-info btn-block" role="button" value="2" name="btn2" onclick="addField(this)">2</a>
+          </div>
+          <div class="col-sm" style="margin-bottom: 20px">
+            <a class="btn btn-outline-info btn-block" role="button" value="3" name="btn3" onclick="addField(this)">3</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- QUESTIONS -->
+  <div class="container" style="">
+    <div class="row" style="margin-right: 0px;">
+      <div class="col-sm" style="margin-top: 30px;">
+        <label for="quantity" style="margin-bottom:0px;"><b>Number Of Questions : </b></label>
+      </div>
+
+      <div class="col-sm" style="padding:0px;" id="question-Sections">
+
+        <!-- dynamic BOX starts -->
+        <div class="row" style="margin-right: 0px;">
+          <div class="col-sm" style="margin-top: 30px;">
+            <label for="first">Section - 1 : </label>
+          </div>
+          <div class="col-sm" style="bottom: 35px;padding-left:0px;padding-right:0px;">
+            <div class="range-slider">
+              <input class="range-slider__range" id="first" type="range" value="10" name="numberOfQuestion" min="2" max="15" required>
+              <span class="range-slider__value" id="time_1">10</span>
+            </div>
+          </div>
+        </div>
+        <!-- dynamic BOX ends -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- POSITIVES -->
+  <div class="container" style="">
+    <div class="row" style="margin-right: 0px;">
+      <div class="col-sm" style="margin-top: 30px;">
+        <label for="quantity"><b>Positives per Question : </b></label>
+      </div>
+      <div class="col-sm" style="padding:0px;" id="positive-Sections">
+
+        <!-- dynamic BOX starts -->
+        <div class="row" style="margin-right: 0px;">
+          <div class="col-sm" style="margin-top: 30px;">
+            <label for="posFirst">Section - 1 : </label>
+          </div>
+          <div class="col-sm" style="bottom: 35px;padding-left:0px;padding-right:0px;">
+            <div class="range-slider">
+              <input class="range-slider__range" id="posFirst" type="range" value="3" name="positives" min="1" max="10" required>
+              <span class="range-slider__value" id="posFirst_1">3</span>
+            </div>
+          </div>
+        </div>
+        <!-- dynamic BOX ends -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- NEGATIVES -->
+  <div class="container" style="">
+    <div class="row" style="margin-right: 0px;">
+      <div class="col-sm" style="margin-top: 30px;">
+        <label for="quantity"><b>Negatives per Question :</b> </label>
+      </div>
+      <div class="col-sm" style="padding:0px;" id="negative-Sections">
+
+        <!-- dynamic BOX starts -->
+        <div class="row" style="margin-right: 0px;">
+          <div class="col-sm" style="margin-top: 30px;">
+            <label for="negFirst">Section - 1 : </label>
+          </div>
+          <div class="col-sm" style="bottom: 35px;padding-left:0px;padding-right:0px;">
+            <div class="range-slider">
+              <input class="range-slider__range" id="negFirst" type="range" value="-1" name="negatives" min="-4" max="0" required>
+              <span class="range-slider__value" id="negFirst_1">-1</span>
+            </div>
+          </div>
+        </div>
+        <!-- dynamic BOX ends -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- DURATION -->
+  <div class="container" style="padding-right:20px;">
+    <div class="row" style="margin-right: 0px;">
+      <div class="col-sm" style="margin-top: 30px;">
+        <label for="duration" style="margin-bottom:0px;"><b>Duration Of examination : </b></label>
+        <div><small class="text text-muted">(in mins.)</small></div>
+      </div>
+
+      <div class="col-sm" style="bottom: 35px;padding-right:0px;">
+        <div class="range-slider">
+          <input class="range-slider__range" id="duration" value="20" type="range" name="duration" min="5" max="180" required>
+          <span class="range-slider__value" id="duration_">20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Added Options -->
+  <div class="container" style="margin-bottom:20px;">
+    <div class="row">
+      <div class="col">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" name="shuffle_question" class="custom-control-input" id="customCheck_s">
+          <label class="custom-control-label" for="customCheck_s"> Shuffle Questions</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" name="shuffle_option" class="custom-control-input" id="customCheck_o">
+          <label class="custom-control-label" for="customCheck_o"> Shuffle Options for every Question</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-block btn-success" style="">
+    <span>Create Questions</span>
+  </button>
+
+
+</form>
+{% endblock %}
+
+{% block image %}
+<img src="{% static 'SecondaryPages/images/signin-image.jpg' %}" alt="sing up image">
+{% endblock %}

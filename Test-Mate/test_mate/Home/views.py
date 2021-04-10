@@ -648,7 +648,7 @@ def ResponseDetailsView(request,code=None):
 
 
     # IMPLEMENT THIS BUTTON FEATURE..
-    
+
     # running = False
     # if(check_datetime(obj_.scheduledDate,obj_.scheduledTime,obj_.examDuration)):
     #     running = True
@@ -702,16 +702,22 @@ def ResponseDetailsView(request,code=None):
         student = Student.objects.get(Response = response)
 
         student.section1_marks = student_metrics[0]
+        student.section1_total = student_metrics[7]
         if student_metrics[1] != "no" :
             student.section2_marks = student_metrics[1]
+            student.section2_total = student_metrics[8]
         else:
             student.section2_marks = None
+            student.section2_total = None
         if student_metrics[2] != "no":
             student.section3_marks = student_metrics[2]
+            student.section2_total = student_metrics[9]
         else:
             student.section3_marks = None
+            student.section2_total = None
 
         student.total_marks = student_metrics[3]
+        student.overall_total = student_metrics[10]
         student.save()
 
         final_context.append(student)
@@ -720,6 +726,10 @@ def ResponseDetailsView(request,code=None):
     return render(request,'Response-page-2.html',{
         'quiz_name':obj_.quizName,
         'data':final_context,
+        'sec_1': student_metrics[7],
+        'sec_2': student_metrics[8],
+        'sec_3': student_metrics[9],
+        'total_marks': student_metrics[10]
     })
 
 

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact V12</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'developer_contact_form/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'developer_contact_form/css/main.css' %}">
+<!--===============================================================================================-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="">
+		<a class="navbar-brand" href="{% url 'home_page' %}">
+			<i class="fa fa-pagelines" aria-hidden="true"></i>
+			Test Mate
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'dashboard_view' %}">Dashboard <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'create_config_page' %}">Create Quiz</a>
+				</li>
+				<li class="nav-item" style="margin-top: 6px;padding-left: 5px;">
+					<form action="{% url 'logout_page' %}" method="POST">
+						{% csrf_token %}
+						<div class="sidebar__logout" style="">
+							<!-- <i class="fa fa-power-off" style="margin-right: 0px;margin-top: 20px;padding-top: 10px;"></i> -->
+							<button type="submit" name="button" class="sidebar__logout" style="background-color:#343a40;color:#e65061;margin-top: 2px;
+	margin-left: 2px;border:0;">
+								<i class="fa fa-power-off" style=""></i>
+								Log Out
+							</button>
+						</div>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="bg-contact100" style="background-image:{% static 'developer_contact_form/images/bg-01.jpg' %};">
+		<div class="container-contact100" style="padding-top:0px;">
+			<div class="wrap-contact100" style="height: 550px;padding-top: 40px;padding-bottom: 40px;">
+				<div class="contact100-pic js-tilt" data-tilt>
+					<img src="{% static 'developer_contact_form/images/img-01.png' %}" alt="IMG">
+				</div>
+
+				<form class="contact100-form validate-form" method="POST">
+					{% csrf_token %}
+
+					<span class="contact100-form-title" style="margin-left:5px;padding-bottom: 0px;font-weight:bold;font-family: 'Montserrat', sans-serif;">
+						Hi there!! &nbsp;<img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="40px" /><br><br>
+						<span style="font-weight:bold;font-size: 17px;font-family: 'Montserrat', sans-serif;">
+							Glad, you are here. Leave your message below
+							& we'll reach out to you as soon as possible.
+						</span>
+					</span>
+					<hr>
+					<div class="wrap-input100 validate-input" data-validate = "subject is required" style="padding-top: 10px;">
+						<input class="input100" type="text" name="subject" placeholder="Subject">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100" style="padding-left: 20px;padding-top: 10px;">
+							<i class="fa fa-dashcube" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Message is required">
+						<textarea class="input100" name="message" placeholder="Message"></textarea>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-contact100-form-btn">
+						<button class="contact100-form-btn" type="submit">
+							Send &nbsp;&nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'developer_contact_form/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'developer_contact_form/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'developer_contact_form/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'developer_contact_form/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'developer_contact_form/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'developer_contact_form/js/main.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>

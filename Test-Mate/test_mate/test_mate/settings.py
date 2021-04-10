@@ -143,6 +143,13 @@ FILES_ROOT = os.path.join(BASE_DIR,'files')
 ANSWER_URL = '/Answers/'
 ANSWER_ROOT = os.path.join(BASE_DIR,'Answers')
 
+
+##############################################
+# For Deletable Files
+
+DELETABLE_URL = '/Delf/'
+DELETABLE_ROOT = os.path.join(BASE_DIR,'Delf')
+
 ##############################################
 # setting up smtp services - Self Mail ID for Test-Mate Website.
 

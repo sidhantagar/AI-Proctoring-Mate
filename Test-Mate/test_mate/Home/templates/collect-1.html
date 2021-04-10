@@ -1,0 +1,33 @@
+{% extends 'collect-base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h5>Please enter the Test Code to get access to the respective Test Material.</h5>
+  </div>
+  <div class="card-body">
+    <form class="form-group" name="collectMaterialForm" action="" method="POST">
+      {% csrf_token %}
+
+      {% if message %}
+      <div style="margin-bottom: 20px;color:red;" id="error_message">
+        <p class="h6">{{ message }}</p>
+      </div>
+      {% endif %}
+      <div class="input-group mb-3" style="">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon2"><b>Test Code</b></span>
+        </div>
+        <input type="text" id="test_code" class="form-control" aria-label="Test's Code" name="code" aria-describedby="basic-addon2" required>
+      </div>
+      <div class="text-left">
+        <small class="text-muted">(Enter the test code given to you by your Teacher!!)</small>
+      </div>
+      <div class="text-left">
+        <a href=""><button class="btn btn-info" id="submit" type="submit" style="margin-top:15px;">Download</button></a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timeline</title>
+  <link rel="stylesheet" href="{% static 'Timeline/css/styles.css' %}">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <!-- BOOTSTRAP 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/e36824a4be.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Overlock&display=swap" rel="stylesheet">
+
+</head>
+
+<body style="padding:0px;background-color:#00203FFF;">
+  <section class="intro" style="background-color:#00203FFF;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="bottom:100px;">
+      <a class="navbar-brand" href="{% url 'home_page' %}">
+        <i class="fa fa-pagelines" aria-hidden="true"></i>
+        Test Mate
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard_view' %}">Dashboard <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create_config_page' %}">Create Quiz</a>
+          </li>
+          <li class="nav-item" style="margin-top: 6px;padding-left: 5px;">
+            <form action="{% url 'logout_page' %}" method="POST">
+              {% csrf_token %}
+              <div class="sidebar__logout" style="">
+                <!-- <i class="fa fa-power-off" style="margin-right: 0px;margin-top: 20px;padding-top: 10px;"></i> -->
+                <button type="submit" name="button" class="sidebar__logout" style="background-color:#343a40;color:#e65061;margin-top: 2px;
+    margin-left: 2px;border:0;">
+                  <i class="fa fa-power-off" style=""></i>
+                  Log Out
+                </button>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h1 style="color:#ADEFD1FF;font-family: 'Roboto Slab', serif;">{{ name }}'s Activity Timeline&nbsp;&darr;</h1>
+
+    </div>
+  </section>
+
+  <section class="timeline">
+    <ul style="background-color:#00203FFF;margin-bottom: 0px;font-family: 'Overlock', cursive;color:#00203FFF;font-size:18px;">
+      {% for x in data %}
+      <!-- <a href="{% url 'view_questions' code=x.testCode %}" style="text-decoration:none;"> -->
+      <li>
+        <div>
+          <p>
+            <span class="h2" style="color:#007965;">{{ x.quizName }}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>Created On : {{ x.dateCreated }}</span>
+          </p>
+          <hr>
+          <p style="color=#c70039;font-weight:bold;">{{ x.quizDescription }}</p>
+          <hr>
+          <p>
+            <span class="h4" style="color:#03506f;">QUIZ CODE : </span>
+            &nbsp;&nbsp;
+            <span class="h2" style="color:#f0a500;">{{ x.testCode }}</span>
+          </p>
+
+        </div>
+      </li>
+      <!-- </a> -->
+      {% endfor %}
+    </ul>
+  </section>
+  <script src="{% static 'Timeline/js/interactivity.js' %}"></script>
+
+</body>
+
+</html>

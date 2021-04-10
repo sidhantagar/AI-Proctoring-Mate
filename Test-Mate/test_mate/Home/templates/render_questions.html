@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ name }}</title>
+
+</head>
+
+<body>
+
+  <section>
+    <div>
+      <p style="font-size:40px;text-align:center;font-weight:bold;font-family:sans-serif;margin-bottom:0px;">{{ name }}</p>
+      <table>
+        <tbody>
+          <td>
+            <p style="text-align:center;font-size:16px;">Author's username : <span style="font-size:22px;font-weight:bold;"> {{ author }} </span></p>
+          </td>
+          <td>
+            <p style="text-align:center;font-size:16px;">Test Code : <span style="font-size:22px;font-weight:bold;color:green;"> {{ code }} </span></p>
+          </td>
+          <td>
+            <p style="text-align:center;font-size:16px;">Time Alloted (in mins.) : <span style="font-size:22px;font-weight:bold;color:red;"> {{ duration }} </span></p>
+          </td>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <hr style="margin-bottom:40px;">
+  <section id="1">
+    {% if sec1 %}
+    <p style="text-align:center;font-weight:bold;font-size:18px;">SECTION - 1 &nbsp; marking : <span style="color:#fa1e0e;font-size:18px;">(+{{ pos_1 }},{{ neg_1 }})</span> </p>
+    {% for x in data1 %}
+    <div style="font-size:14px;margin-top:5px;font-weight:bold;">
+      <p>{{ forloop.counter }}.&nbsp;<span>{{ x.question }}</span></p>
+      <table style="margin-left:5px;margin-bottom:5px;font-size:12px;">
+        <tbody>
+          <td>A.&nbsp;{{ x.option_1 }}</td>
+          <td>B.&nbsp;{{ x.option_2 }}</td>
+          <td>C.&nbsp;{{ x.option_3 }}</td>
+          <td>D.&nbsp;{{ x.option_4 }}</td>
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+    <hr>
+    {% endif %}
+  </section>
+
+  <section id="2">
+    {% if sec2 %}
+    <p style="text-align:center;font-weight:bold;font-size:18px;">SECTION - 2 &nbsp; marking : <span style="color:#fa1e0e;font-size:18px;">(+{{ pos_2 }},{{ neg_2 }})</span> </p>
+    {% for x in data2 %}
+    <div style="font-size:14px;margin-top:5px;font-weight:bold;">
+      <p>{{ forloop.counter }}.&nbsp;<span>{{ x.question }}</span></p>
+      <table style="margin-left:5px;margin-bottom:5px;font-size:12px;">
+        <tbody>
+          <td>A.&nbsp;{{ x.option_1 }}</td>
+          <td>B.&nbsp;{{ x.option_2 }}</td>
+          <td>C.&nbsp;{{ x.option_3 }}</td>
+          <td>D.&nbsp;{{ x.option_4 }}</td>
+        </tbody>
+      </table>
+    </div>
+
+    {% endfor %}
+    <hr>
+    {% endif %}
+  </section>
+
+  <section id="3">
+    {% if sec3 %}
+    <p style="text-align:center;font-weight:bold;font-size:18px;">SECTION - 3 &nbsp; marking : <span style="color:#fa1e0e;font-size:18px;">(+{{ pos_3 }},{{ neg_3 }})</span> </p>
+
+    {% for x in data3 %}
+    <div style="font-size:14px;margin-top:5px;font-weight:bold;">
+      <p>{{ forloop.counter }}.&nbsp;<span>{{ x.question }}</span></p>
+
+      <table style="margin-left:5px;margin-bottom:5px;font-size:12px;">
+        <tbody>
+          <td>A.&nbsp;{{ x.option_1 }}</td>
+          <td>B.&nbsp;{{ x.option_2 }}</td>
+          <td>C.&nbsp;{{ x.option_3 }}</td>
+          <td>D.&nbsp;{{ x.option_4 }}</td>
+        </tbody>
+      </table>
+      </p>
+    </div>
+
+    {% endfor %}
+    <hr>
+    {% endif %}
+  </section>
+</body>
+
+</html>

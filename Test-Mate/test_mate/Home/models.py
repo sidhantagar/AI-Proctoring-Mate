@@ -71,3 +71,24 @@ class SectionMetrics(models.Model):
     class Meta:
         verbose_name = 'Section Metric'
         verbose_name_plural = 'Section Metrics'
+
+
+###################################################################################
+
+
+# Metrics model for storing Class's performance in a particular quiz.
+
+class Metrics(models.Model):
+
+    test_code = models.OneToOneField(ConfigCreation,on_delete=models.CASCADE)
+
+    mean_marks = models.IntegerField(null=True,blank=True)
+    minimum_marks = models.IntegerField(null=True,blank=True)
+    maximum_marks = models.IntegerField(null=True,blank=True)
+
+    def __str__(self):
+        return self.test_code.quizName + ' - Metrics'
+
+    class Meta:
+        verbose_name = 'Code Metric'
+        verbose_name_plural = 'Code Metrics'

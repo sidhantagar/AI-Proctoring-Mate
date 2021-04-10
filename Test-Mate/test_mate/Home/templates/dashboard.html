@@ -16,6 +16,8 @@
   <!-- FONT AWESOME -->
   <script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/duotone.js" integrity="sha384-PcDzzpTJzDDda2YUM4EY5ZqnZQ3DTIFtoaAn7t07N0UIY1HVyaxIHRzROmFBd48z" crossorigin="anonymous"></script>
   <script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/fontawesome.js" integrity="sha384-8YSeMunSTZdDZy7rZxfG3NqC3KnYaCKxTJMm9yoILgIoMpXeTKDrV8TeV9C5ItEc" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body id="body">
@@ -28,7 +30,6 @@
         <a class="active_link" href="{% url 'dashboard_view' %}">Admin</a>
         <!-- <a href="{% url 'create_config_page' %}">Create Quiz</a> -->
         <a href="{% url 'test_created' %}">Created Quizzes</a>
-        <a href="{% url 'response_page_1' %}">Responses</a>
       </div>
       <div class="navbar__right">
         <!-- <a href="#">
@@ -76,7 +77,7 @@
               <!-- <i class="fa fa-user-o fa-2x text-lightblue" aria-hidden="true"></i> -->
               <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true" style="margin-bottom:10px;color:#fb743e;"></i>
               <div class="card_inner">
-                <p class="text-primary-p">Number of Test(s) Created</p>
+                <p class="text-primary-p" style="font-family: 'Montserrat', sans-serif;font-weight:bold;">Number of Test(s)<br> Created</p>
                 <span class="font-bold text-title">{{ quiz_count }}</span>
               </div>
             </div>
@@ -86,7 +87,7 @@
               <!-- <i class="fa fa-calendar fa-2x text-red" aria-hidden="true"></i> -->
               <i class="fa fa-question fa-2x" style="color:#ffd66b;margin-bottom:10px;" aria-hidden="true"></i>
               <div class="card_inner">
-                <p class="text-primary-p">Total number of questions created</p>
+                <p class="text-primary-p" style="font-family: 'Montserrat', sans-serif;">Total number of<br> questions created</p>
                 <span class="font-bold text-title">{{ question_count }}</span>
               </div>
             </div>
@@ -97,8 +98,8 @@
               <!-- <i class="fa fa-video-camera fa-2x text-yellow" aria-hidden="true" style="margin-bottom:10px;"></i> -->
               <i class="fa fa-user-o fa-2x text-lightblue" aria-hidden="true" style="margin-bottom:10px;"></i>
               <div class="card_inner">
-                <p class="text-primary-p">Number of student(s)<br> who took your test</p>
-                <span class="font-bold text-title">{{ tests_taken }}</span>
+                <p class="text-primary-p" style="font-family: 'Montserrat', sans-serif;font-weight:bold;">Number of student(s)<br> who took your test</p>
+                &nbsp;<span class="font-bold text-title">{{ tests_taken }}</span>
               </div>
 
             </div>
@@ -114,49 +115,18 @@
         <!-- MAIN CARDS ENDS HERE -->
 
         <!-- CHARTS STARTS HERE -->
-        <div class="charts">
-          <div class="charts__left">
+        <div class="charts" style="margin-top:20px;">
+          <div class="charts__left" style="position: relative;width: 1080px;">
             <div class="charts__left__title">
               <div>
-                <h1>Daily Reports</h1>
-                <p>Cupertino, California, USA</p>
+                <h1 style="font-family: 'Montserrat', sans-serif;">Response Summary</h1>
+                <p style="font-family: 'Montserrat', sans-serif;">This is the Summary of the Student's Performances in your created Quizzes</p>
               </div>
-              <i class="fa fa-usd" aria-hidden="true"></i>
             </div>
             <div id="apex1"></div>
           </div>
 
-          <div class="charts__right">
-            <div class="charts__right__title">
-              <div>
-                <h1>Stats Reports</h1>
-                <p>Cupertino, California, USA</p>
-              </div>
-              <i class="fa fa-usd" aria-hidden="true"></i>
-            </div>
 
-            <div class="charts__right__cards">
-              <div class="card1">
-                <h1>Income</h1>
-                <p>$75,300</p>
-              </div>
-
-              <div class="card2">
-                <h1>Sales</h1>
-                <p>$124,200</p>
-              </div>
-
-              <div class="card3">
-                <h1>Users</h1>
-                <p>3900</p>
-              </div>
-
-              <div class="card4">
-                <h1>Orders</h1>
-                <p>1881</p>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- CHARTS ENDS HERE -->
       </div>
@@ -244,7 +214,70 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="{% static 'Dashboard/script.js' %}"></script>
+  <script src="{% static 'Dashboard/script-new.js' %}"></script>
+  <script type="text/javascript">
+      var data = JSON.parse("{{ data|escapejs }}");
+    // This is for able to see chart. We are using Apex Chart. U can check the documentation of Apex Charts too..
+
+      var options = {
+        series: [{
+            name: "Maximum Marks",
+            data: data[0],
+          },
+          {
+            name: "Minimum Marks",
+            data: data[1],
+          },
+          {
+            name: "Average Marks",
+            data: data[2],
+          },
+        ],
+        chart: {
+          type: "bar",
+          height: 350, // make this 250
+          // sparkline: {
+          //   enabled: true, // make this true
+          // },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            endingShape: "rounded",
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"],
+        },
+        xaxis: {
+          categories: data[3],
+        },
+        yaxis: {
+          title: {
+            text: "Marks Summary",
+          },
+        },
+        fill: {
+          opacity: 1,
+        },
+        tooltip: {
+          y: {
+            formatter: function(val) {
+              return val ;
+            },
+          },
+        },
+      };
+
+    var chart = new ApexCharts(document.querySelector("#apex1"), options);
+    chart.render();
+  </script>
 </body>
 
 </html>

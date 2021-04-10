@@ -155,3 +155,16 @@ def list_to_str(lst):
     temp_list.append(str(lst[len(lst)-1]))
     temp_list.append(']')
     return "".join(temp_list)
+
+
+
+##########################MEAN##OF##A##LIST##########################################
+
+
+def mean_f(lst,n):
+
+    sum = 0
+    for i in lst:
+        sum += i
+
+    return sum//n

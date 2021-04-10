@@ -22,6 +22,8 @@ import zipfile
 import shutil
 import pandas as pd
 
+from json import dumps
+
 
 ################################################################################
 
@@ -307,6 +309,41 @@ def DashboardView(request):
 
     quizzesCreated = len(ConfigCreation.objects.filter(testCreator = User.objects.get(username=name)))
     config_obj = ConfigCreation.objects.filter(testCreator = User.objects.get(username=name))
+    obj_ = ConfigCreation.objects.filter(testCreator = User.objects.get(username=name))
+
+    data = []
+    temp = []
+    quiz = []
+    for obj in obj_ :
+
+        try:
+            metric = Metrics.objects.get(test_code = obj)
+
+            temp.append(metric.maximum_marks)
+            temp.append(metric.minimum_marks)
+            temp.append(metric.mean_marks)
+            data.append(temp)
+
+            temp = []
+            quiz.append(obj.quizName)
+
+        except Metrics.DoesNotExist:
+            pass
+
+    data_new = []
+    max_,min_,avg_ = [],[],[]
+
+    for i in range(len(data)):
+
+        max_.append(data[i][0])
+        min_.append(data[i][1])
+        avg_.append(data[i][2])
+
+    data_new.append(max_)
+    data_new.append(min_)
+    data_new.append(avg_)
+    data_new.append(quiz)
+
 
     for test in config_obj:
         if test.questionCountSec_1:
@@ -319,11 +356,14 @@ def DashboardView(request):
         tests_taken += len(AnswerKey.objects.filter(test_code = test.testCode))
 
 
+    data_new = dumps(data_new)
+
     return render(request,'dashboard.html',{
         'name':name,
         'quiz_count':quizzesCreated,
         'question_count' : questionsCreated,
-        'tests_taken' : tests_taken
+        'tests_taken' : tests_taken,
+        'data':data_new
     })
 
 
@@ -712,9 +752,14 @@ def ResponseDetailsView(request,code=None):
         ans_list.append(temp)
 
     responses = AnswerKey.objects.filter(test_code = code)
+
+
+
     final_context = []
+    performance_list = []
     for response in responses:
 
+        perf_ = []
         temp_dict = {}
         # student_metrics is a list of 10 elements [a,b,c,d,[sec1_mat],[sec2_mat],[sec3_mat],e,f,g,h]
         # a:section1_marks,b:section2_marks....,d:total_marks
@@ -743,8 +788,24 @@ def ResponseDetailsView(request,code=None):
         student.overall_total = student_metrics[10]
         student.save()
 
+        performance_list.append(student_metrics[3])
+
         final_context.append(student)
 
+    try:
+        chart_ = Metrics.objects.get(test_code = obj_)
+
+    except Metrics.DoesNotExist:
+
+        chart_ = Metrics()
+        chart_.test_code = obj_
+
+
+        chart_.maximum_marks = max(performance_list)
+        chart_.minimum_marks = min(performance_list)
+        chart_.mean_marks = mean_f(performance_list,len(performance_list))
+
+        chart_.save()
 
     return render(request,'Response-page-2.html',{
         'quiz_name':obj_.quizName,

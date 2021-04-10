@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(Student)
 admin.site.register(SectionMetrics)
+admin.site.register(Metrics)

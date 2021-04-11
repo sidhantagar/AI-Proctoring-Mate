@@ -10,7 +10,7 @@
 <p><b>AI-Proctoring-Mate</b> is an <b>end-to-end Examination Portal</b>, with <b>AI-proctored student's Interface</b> for taking the quiz/test, and a <b>Web app for Teachers and Online Quiz creators</b> for creating quizzes, viewing responses, and sending Feedback to students on the basis of their performance in the Test/Quiz.</p>
   
 ## Demo Video Link:
-  <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
+  <a href="https://drive.google.com/file/d/1DCIg-qzuCiQ5d_pwO4xyPGxk1fIBsp0h/view?usp=sharing">AI-Proctoring-Mate Video</a>
   
 ## Presentation Link:
   <a href="https://drive.google.com/file/d/1Mz-T13XT33YgwE-34xKqBQ-fnPwoy4Y_/view?usp=sharing"> AI-Proctoring-Mate PPT </a>
@@ -41,7 +41,7 @@ Team Name: **Apunich bhagwan ha**
 <a href="https://hack36.com"> <img src="http://bit.ly/BuiltAtHack36" height=20px> </a>
 
 
-## AI Proctoring:
+## AI Proctoring
   
 #### Concept:
 <p>AI proctoring is the core of <code>AI PROCTORING MATE</code> Application. As the name suggests, It enables the possiblity of conducting examination,with proctors being Machine itself.</p>
@@ -57,13 +57,25 @@ It works as in, <b>As soon as the test starts at the student's end, the system's
 </p>
 
 
-### UI Components:
+## PART1 : UI Components:
 
 <code>This is part 1 of <b>AI-PROCTORING-MATE</b> Application</code><br>
 Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 <strong>Description:</strong><br>
-<p>...</p>
+
+<p>This is the Candidate's end of the <code>AI PROCTORING MATE</code>.</p>
+
+<p>
+It comprises of the UI components for Setting up AI proctored envoirnment for the Quiz/test at the candidate's end.The UI has Sections (max. upto 3) depending upon the configurations set by the test creator.It has an in-built Calculator which is enabled according to the configurations instructions for the quiz given by the teacher.
+Student gets the mark for review, unmark , reset response, select options for each question.
+</p>
+
+#### Working
+
+<p>
+...   
+<p>
 
 <details>
   <summary>:zap: <strong>Proposed Features </strong> </summary>
@@ -126,7 +138,7 @@ Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 </details>
 
-## PART2 : Test Mate:
+## PART2 : Test Mate
 
 <code>This is part 2 of <b>AI-PROCTORING-MATE</b> Application</code><br>
 Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
@@ -159,7 +171,7 @@ Once the quiz is created, he/she will be prompted to a webpage, with a <b>unique
   <b>Features for reaching students(feedbacks) and developers(in case of any discrepancies) via mailing service</b> is also provided on the website.
 <p>
 
-### Test Mate Progress:
+### Test Mate Progress
 
 <details>
   

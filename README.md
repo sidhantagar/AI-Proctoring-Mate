@@ -6,7 +6,8 @@
 
 
 ## Introduction:
-  Intro of the project
+  
+<p><b>AI-Proctoring-Mate</b> is an <b>end-to-end Examination Portal</b>, with <b>AI-proctored student's Interface</b> for taking the quiz/test, and a <b>Web app for Teachers and Online Quiz creators</b> for creating quizzes, viewing responses, and sending Feedback to students on the basis of their performance in the Test/Quiz.</p>
   
 ## Demo Video Link:
   <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
@@ -36,20 +37,30 @@ Team Name: **Apunich bhagwan ha**
 * <code>[Sidhant Agarwal](https://github.com/sidhantagar)</code>
 * <code>[Vivek Rai](https://github.com/Blazer-007)</code>
 
+### Made at:
+<a href="https://hack36.com"> <img src="http://bit.ly/BuiltAtHack36" height=20px> </a>
 
-
-
-Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 ## AI Proctoring:
   
-<strong>Description:</strong><br>
-<p>...</p>
+#### Concept:
+<p>AI proctoring is the core of <code>AI PROCTORING MATE</code> Application. As the name suggests, It enables the possiblity of conducting examination,with proctors being Machine itself.</p>
+
+
+#### Working:
+<p>
+It works as in, <b>As soon as the test starts at the student's end, the system's camera at the candidate's end starts capturing the video frames</b>. Upon this video frame, the <b>frontal_face_detector detects the count of faces in the frame</b>; blink detection script, evaluates if the <b>candidate is blinking (or ultimately looking down)</b> & the <b>Iris movements of the candidate is tracked , using gaze detection and face_detection_68_facial_landmarks data model</b>. Object Detection is also enabled in the test envoirnment.
+</p>
+
+<p>
+  Via a <b>pre-tuned function</b>, this script considering <b>all the factors(blink, gaze, object detection, facial counts..)</b>, calculates a suspicion value, which is then compared with a Threshold value, and <b>if the suspicion value exceeds the threshold value; the student is given a warning( 2 times ), the 3rd time it happens, test ends automatically.</b>
+</p>
 
 
 ### UI Components:
 
-<code>This is part 1 of <b>AI-PROCTORING-MATE</b> Application</code>
+<code>This is part 1 of <b>AI-PROCTORING-MATE</b> Application</code><br>
+Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 <strong>Description:</strong><br>
 <p>...</p>
@@ -117,7 +128,8 @@ Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 ## PART2 : Test Mate:
 
-<code>This is part 2 of <b>AI-PROCTORING-MATE</b> Application</code>
+<code>This is part 2 of <b>AI-PROCTORING-MATE</b> Application</code><br>
+Use <code>&#x2713;</code> or <code>&#x2717;</code> for displaying Progress.
 
 <strong>Description:</strong><br>
 <p>

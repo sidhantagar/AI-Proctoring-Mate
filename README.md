@@ -74,7 +74,11 @@ Student gets the mark for review, unmark , reset response, select options for ea
 #### Working
 
 <p>
-...   
+  The first window in the UI is Get code which prompts the user to enter the test code.<br>
+  The second window in the UI is the Get Details window which obtains the name and ID from the candidate.<br>
+  Then the instruction menu is rendered for 90 seconds which shows basic test details like no. of sections etc.<br>
+  The final window is the exam window which gets the responses from the candidate <br>
+  Post completion of test(either thorugh timeout or submit test) a chrome automation is run which uploads the video and resposnse files pertaining to the test.
 <p>
 
 <details>
@@ -131,7 +135,7 @@ Student gets the mark for review, unmark , reset response, select options for ea
 <li> <code>-</code> &nbsp; The video is processed by AI algorithms using parallel computation for speedup</li>
 <li> <code>-</code> &nbsp; Generates a ultrasound pulse and records its amplitude at regular intervals</li>
 <li> <code>&#x2713;</code> &nbsp; Uploads the response file as well as video files of the candidate</li>
-<li> <code>-</code> &nbsp; Removes unnecessary files</li>
+<li> <code>&#x2713;</code> &nbsp; Removes unnecessary files</li>
 
 </details>
 
